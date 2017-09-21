@@ -170,11 +170,6 @@ public class LocationTracker implements
         }
     }
 
-    public String getDummyData() {
-        return "dummyDataChanged";
-
-    }
-
     public interface GetLocationCallback {
         void currentLocation(double latitude, double longitude);
 
