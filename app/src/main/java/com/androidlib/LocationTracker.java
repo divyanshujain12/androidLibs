@@ -171,7 +171,7 @@ public class LocationTracker implements
     }
 
     public String getDummyData() {
-        return "dummyData";
+        return "dummyDataChanged";
 
     }
 
