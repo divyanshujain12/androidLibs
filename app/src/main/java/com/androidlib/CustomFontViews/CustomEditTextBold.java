@@ -11,7 +11,7 @@ import android.util.AttributeSet;
  */
 
 public class CustomEditTextBold extends AppCompatEditText {
-    
+
 
     public CustomEditTextBold(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
