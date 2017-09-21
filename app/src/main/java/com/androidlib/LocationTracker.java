@@ -172,6 +172,7 @@ public class LocationTracker implements
 
     public String getDummyData() {
         return "dummyData";
+
     }
 
     public interface GetLocationCallback {
