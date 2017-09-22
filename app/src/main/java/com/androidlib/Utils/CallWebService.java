@@ -5,12 +5,15 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 
 import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.request.JsonObjectRequest;
+import com.android.volley.request.JsonRequest;
+import com.android.volley.request.StringRequest;
 import com.androidlib.CustomViews.CustomToasts;
 import com.androidlib.GlobalClasses.LibInit;
 import com.androidlib.Interfaces.Constants;
