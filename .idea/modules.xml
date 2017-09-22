@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://D:\Projects\Omadre\OmadreApps\androidLibs\LocationLib.iml" filepath="D:\Projects\Omadre\OmadreApps\androidLibs\LocationLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/androidLibs.iml" filepath="$PROJECT_DIR$/.idea/androidLibs.iml" />
+      <module fileurl="file://D:\prs\OmadreApps\androidLibs\.idea\androidLibs.iml" filepath="D:\prs\OmadreApps\androidLibs\.idea\androidLibs.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://D:\Projects\Omadre\OmadreApps\androidLibs\app\app.iml" filepath="D:\Projects\Omadre\OmadreApps\androidLibs\app\app.iml" />
+      <module fileurl="file://D:\prs\OmadreApps\androidLibs\app\app.iml" filepath="D:\prs\OmadreApps\androidLibs\app\app.iml" />
     </modules>
   </component>
 </project>
