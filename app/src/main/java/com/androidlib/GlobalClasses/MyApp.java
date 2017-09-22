@@ -19,7 +19,7 @@ public class MyApp extends Application {
     private ImageLoader mImageLoader;
     private static MyApp mInstance;
 
-
+private MyApp(){}
     @Override
     public void onCreate() {
 

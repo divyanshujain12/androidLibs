@@ -18,7 +18,7 @@ import org.json.JSONObject;
 /**
  * Created by divyanshu on 5/29/2016.
  */
-public class BaseActivity extends AppCompatActivity implements CallWebService.ObjectResponseCallBack, SnackBarCallback, UpdateUiCallback, RecyclerViewClick {
+public class BaseActivity extends AppCompatActivity implements CallWebService.ResponseCallback, SnackBarCallback, UpdateUiCallback, RecyclerViewClick {
 
     @Override
     public void doAction() {
@@ -52,7 +52,7 @@ public class BaseActivity extends AppCompatActivity implements CallWebService.Ob
     }
 
     @Override
-    public void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException {
+    public void onSuccess(Object response, int apiType) throws JSONException {
 
     }
 

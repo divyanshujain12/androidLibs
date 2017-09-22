@@ -33,11 +33,12 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     public static int POST = Request.Method.POST;
     public static int PUT = Request.Method.PUT;
     public static int DELETE = Request.Method.DELETE;
-    private ObjectResponseCallBack objectCallBackInterface;
-    private ArrayResponseCallback arrayCallBackInterface;
+    private ResponseCallback responseCallback;
+
     private int apiCode = 0;
     private String url = "";
     private Snackbar continuousSB;
+
 
     public static CallWebService getInstance(Context context, boolean showProgressBar, int apiCode) {
         CallWebService instance = new CallWebService();
@@ -51,9 +52,9 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         return instance;
     }
 
-    public void hitJsonObjectRequestAPI(int requestType, final String url, JSONObject json, final ObjectResponseCallBack callBackInterface) {
+    public void hitJsonObjectRequestAPI(int requestType, final String url, JSONObject json, final ResponseCallback callBackInterface) {
         if (InternetCheck.isInternetOn(context)) {
-            objectCallBackInterface = callBackInterface;
+            responseCallback = callBackInterface;
             cancelRequest(url);
             this.url = url;
             if (continuousSB != null)
@@ -66,8 +67,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         }
     }
 
-    public void hitJsonArrayRequestAPI(int requestType, final String url, JSONArray json, final ArrayResponseCallback callBackinerface) {
-        arrayCallBackInterface = callBackinerface;
+    public void hitJsonArrayRequestAPI(int requestType, final String url, JSONArray json, final ResponseCallback callBackinerface) {
+        responseCallback = callBackinerface;
         cancelRequest(url);
 
         this.url = url;
@@ -110,8 +111,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     private void onJsonObjectResponse(JSONObject response) {
         try {
             if (response.getBoolean(Constants.STATUS_CODE)) {
-                if (objectCallBackInterface != null)
-                    objectCallBackInterface.onJsonObjectSuccess(response, apiCode);
+                if (responseCallback != null)
+                    responseCallback.onSuccess(response, apiCode);
             } else
                 onError(response.getString(Constants.MESSAGE));
         } catch (final JSONException e) {
@@ -123,25 +124,16 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void onJsonArrayResponse(JSONArray response) {
         try {
-            arrayCallBackInterface.onJsonArraySuccess(response, apiCode);
+            responseCallback.onSuccess(response, apiCode);
         } catch (final JSONException e) {
             onError(e.getMessage());
             e.printStackTrace();
         }
     }
 
+    public interface ResponseCallback {
 
-    public interface ObjectResponseCallBack {
-
-        void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException;
-
-        void onFailure(String str, int apiType);
-
-    }
-
-    public interface ArrayResponseCallback {
-
-        void onJsonArraySuccess(JSONArray array, int apiType) throws JSONException;
+        void onSuccess(Object data, int apiType) throws JSONException;
 
         void onFailure(String str, int apiType);
 
@@ -151,8 +143,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
         if (continuousSB != null)
             CommonFunctions.hideContinuousSB(continuousSB);
-        if (objectCallBackInterface != null)
-            objectCallBackInterface.onFailure(error, apiCode);
+        if (responseCallback != null)
+            responseCallback.onFailure(error, apiCode);
         //  CustomToasts.getInstance(context).showErrorToast(error);
     }
 

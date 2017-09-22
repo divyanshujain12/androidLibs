@@ -16,7 +16,7 @@ import org.json.JSONObject;
 /**
  * Created by divyanshu on 9/3/2016.
  */
-public class BaseDialogFragment extends DialogFragment implements CallWebService.ObjectResponseCallBack, SnackBarCallback, UpdateUiCallback, RecyclerViewClick {
+public class BaseDialogFragment extends DialogFragment implements CallWebService.ResponseCallback, SnackBarCallback, UpdateUiCallback, RecyclerViewClick {
 
     @Override
     public void doAction() {
@@ -34,7 +34,7 @@ public class BaseDialogFragment extends DialogFragment implements CallWebService
     }
 
     @Override
-    public void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException {
+    public void onSuccess(Object response, int apiType) throws JSONException {
 
     }
 
