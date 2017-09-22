@@ -13,11 +13,11 @@ import com.android.volley.toolbox.Volley;
 /**
  * Created by divyanshu.jain on 9/15/2016.
  */
-public class MyApp extends Application {
-    private static final String TAG = MyApp.class.getSimpleName();
+public class LibInit extends Application {
+    private static final String TAG = LibInit.class.getSimpleName();
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    private static MyApp mInstance;
+    private static LibInit mInstance;
 
 
     @Override
@@ -28,9 +28,9 @@ public class MyApp extends Application {
 
     }
 
-    public static synchronized MyApp getInstance() {
+    public static synchronized LibInit getInstance() {
         if (mInstance == null)
-            mInstance = new MyApp();
+            mInstance = new LibInit();
         return mInstance;
     }
 

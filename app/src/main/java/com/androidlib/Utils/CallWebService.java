@@ -12,7 +12,7 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.request.JsonObjectRequest;
 import com.androidlib.CustomViews.CustomToasts;
-import com.androidlib.GlobalClasses.MyApp;
+import com.androidlib.GlobalClasses.LibInit;
 import com.androidlib.Interfaces.Constants;
 import com.locationlib.R;
 
@@ -84,19 +84,19 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         RetryPolicy policy = new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_TIME, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
 
-        MyApp.getInstance().addToRequestQueue(request, url);
+        LibInit.getInstance().addToRequestQueue(request, url);
     }
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        MyApp.getInstance().getRequestQueue().getCache().invalidate(url, true);
+        LibInit.getInstance().getRequestQueue().getCache().invalidate(url, true);
         error = configureErrorMessage(error);
         onError(error.getMessage());
     }
 
     @Override
     public void onResponse(Object response) {
-        MyApp.getInstance().getRequestQueue().getCache().invalidate(url, true);
+        LibInit.getInstance().getRequestQueue().getCache().invalidate(url, true);
         if (continuousSB != null)
             CommonFunctions.hideContinuousSB(continuousSB);
 
@@ -158,7 +158,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void cancelRequest(String url) {
         if (this.url.equals(url))
-            MyApp.getInstance().cancelPendingRequests(url);
+            LibInit.getInstance().cancelPendingRequests(url);
     }
 
    /* private void sendErrorToView() {
