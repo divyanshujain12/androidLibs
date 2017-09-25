@@ -3,6 +3,7 @@ package com.androidlib.Utils;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
+import android.util.Base64;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -75,9 +76,13 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-                    params.put("userid", username);
-                    params.put("pass", password);
-
+//                    params.put("userid", username);
+//                    params.put("pass", password);
+                    String credentials = username + ":" + password;
+                    String auth = "Basic "
+                            + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+                    params.put("Content-Type", "application/json");
+                    params.put("Authorization", auth);
                     return params;
                 }
             };
