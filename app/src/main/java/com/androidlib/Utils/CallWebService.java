@@ -5,25 +5,25 @@ import android.content.Context;
 import android.support.design.widget.Snackbar;
 
 import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
+import com.android.volley.error.AuthFailureError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.request.JsonObjectRequest;
-import com.android.volley.request.JsonRequest;
-import com.android.volley.request.StringRequest;
 import com.androidlib.CustomViews.CustomToasts;
 import com.androidlib.GlobalClasses.CustomRequest;
 import com.androidlib.GlobalClasses.LibInit;
 import com.androidlib.Interfaces.Constants;
 import com.locationlib.R;
 
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -42,6 +42,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     private int apiCode = 0;
     private String url = "";
     private Snackbar continuousSB;
+    private String username, password, authKey;
 
 
     public static CallWebService getInstance(Context context, boolean showProgressBar, int apiCode) {
@@ -56,6 +57,12 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         return instance;
     }
 
+    public void setHeadersValue(String userid, String pass, String authKey) {
+        this.username = userid;
+        this.password = pass;
+        this.authKey = authKey;
+    }
+
     public void hitJsonObjectRequestAPI(int requestType, final String url, JSONObject json, final ResponseCallback callBackInterface) {
         if (InternetCheck.isInternetOn(context)) {
             responseCallback = callBackInterface;
@@ -64,7 +71,16 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
             if (continuousSB != null)
                 CommonFunctions.showContinuousSB(continuousSB);
 
-            JsonObjectRequest request = new JsonObjectRequest(requestType, url, json == null ? null : (json), this, this);
+            JsonObjectRequest request = new JsonObjectRequest(requestType, url, json == null ? null : (json), this, this) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<String, String>();
+                    params.put("userid", username);
+                    params.put("pass", password);
+
+                    return params;
+                }
+            };
             addRequestToVolleyQueue(url, request);
         } else {
             CustomToasts.getInstance(context).showErrorToast(context.getString(R.string.no_internet_connection));
@@ -81,24 +97,33 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         if (continuousSB != null)
             CommonFunctions.showContinuousSB(continuousSB);
 
-        JsonArrayRequest request = new JsonArrayRequest(requestType, url, json == null ? null : (json), this, this);
+        JsonArrayRequest request = new JsonArrayRequest(requestType, url, json == null ? null : (json), this, this) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("userid", username);
+                params.put("pass", password);
+
+                return params;
+            }
+        };
         addRequestToVolleyQueue(url, request);
     }
 
 
     public void hitCustomRequestAPI(int requestType, final String url, JSONObject json, final ResponseCallback callBackInterface) {
         if (InternetCheck.isInternetOn(context)) {
-        responseCallback = callBackInterface;
-        cancelRequest(url);
-        this.url = url;
-        if (continuousSB != null)
-            CommonFunctions.showContinuousSB(continuousSB);
+            responseCallback = callBackInterface;
+            cancelRequest(url);
+            this.url = url;
+            if (continuousSB != null)
+                CommonFunctions.showContinuousSB(continuousSB);
 
-        CustomRequest request = new CustomRequest(requestType, url, json == null ? null : (json), this, this);
-        addRequestToVolleyQueue(url, request);
-    } else {
-        CustomToasts.getInstance(context).showErrorToast(context.getString(R.string.no_internet_connection));
-    }
+            CustomRequest request = new CustomRequest(requestType, url, json == null ? null : (json), this, this);
+            addRequestToVolleyQueue(url, request);
+        } else {
+            CustomToasts.getInstance(context).showErrorToast(context.getString(R.string.no_internet_connection));
+        }
     }
 
 
