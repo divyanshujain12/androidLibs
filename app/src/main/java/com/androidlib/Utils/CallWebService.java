@@ -42,7 +42,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     private int apiCode = 0;
     private String url = "";
     private Snackbar continuousSB;
-    private String username, password, authKey;
+    private static String username, password, authKey;
 
 
     public static CallWebService getInstance(Context context, boolean showProgressBar, int apiCode) {
@@ -58,9 +58,9 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     }
 
     public void setHeadersValue(String userid, String pass, String authKey) {
-        this.username = userid;
-        this.password = pass;
-        this.authKey = authKey;
+        username = userid;
+        password = pass;
+        authKey = authKey;
     }
 
     public void hitJsonObjectRequestAPI(int requestType, final String url, JSONObject json, final ResponseCallback callBackInterface) {
