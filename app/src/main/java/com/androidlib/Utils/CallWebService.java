@@ -15,6 +15,7 @@ import com.android.volley.request.JsonObjectRequest;
 import com.android.volley.request.JsonRequest;
 import com.android.volley.request.StringRequest;
 import com.androidlib.CustomViews.CustomToasts;
+import com.androidlib.GlobalClasses.CustomRequest;
 import com.androidlib.GlobalClasses.LibInit;
 import com.androidlib.Interfaces.Constants;
 import com.locationlib.R;
@@ -71,6 +72,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     }
 
     public void hitJsonArrayRequestAPI(int requestType, final String url, JSONArray json, final ResponseCallback callBackinerface) {
+
         responseCallback = callBackinerface;
         cancelRequest(url);
 
@@ -82,6 +84,23 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         JsonArrayRequest request = new JsonArrayRequest(requestType, url, json == null ? null : (json), this, this);
         addRequestToVolleyQueue(url, request);
     }
+
+
+    public void hitCustomRequestAPI(int requestType, final String url, JSONArray json, final ResponseCallback callBackInterface) {
+        if (InternetCheck.isInternetOn(context)) {
+        responseCallback = callBackInterface;
+        cancelRequest(url);
+        this.url = url;
+        if (continuousSB != null)
+            CommonFunctions.showContinuousSB(continuousSB);
+
+        CustomRequest request = new CustomRequest(requestType, url, json == null ? null : (json), this, this);
+        addRequestToVolleyQueue(url, request);
+    } else {
+        CustomToasts.getInstance(context).showErrorToast(context.getString(R.string.no_internet_connection));
+    }
+    }
+
 
     private void addRequestToVolleyQueue(String url, Request request) {
         RetryPolicy policy = new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_TIME, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
