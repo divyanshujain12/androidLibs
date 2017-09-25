@@ -81,6 +81,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
                     return params;
                 }
             };
+
             addRequestToVolleyQueue(url, request);
         } else {
             CustomToasts.getInstance(context).showErrorToast(context.getString(R.string.no_internet_connection));
