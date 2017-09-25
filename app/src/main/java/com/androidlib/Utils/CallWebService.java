@@ -86,7 +86,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     }
 
 
-    public void hitCustomRequestAPI(int requestType, final String url, JSONArray json, final ResponseCallback callBackInterface) {
+    public void hitCustomRequestAPI(int requestType, final String url, JSONObject json, final ResponseCallback callBackInterface) {
         if (InternetCheck.isInternetOn(context)) {
         responseCallback = callBackInterface;
         cancelRequest(url);
