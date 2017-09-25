@@ -15,7 +15,7 @@ import com.android.volley.request.JsonObjectRequest;
 import com.androidlib.CustomViews.CustomToasts;
 import com.androidlib.GlobalClasses.CustomRequest;
 import com.androidlib.GlobalClasses.LibInit;
-import com.androidlib.Interfaces.Constants;
+import com.androidlib.Interfaces.LibConstants;
 import com.locationlib.R;
 
 import org.json.JSONArray;
@@ -129,7 +129,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
 
     private void addRequestToVolleyQueue(String url, Request request) {
-        RetryPolicy policy = new DefaultRetryPolicy(Constants.REQUEST_TIMEOUT_TIME, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        RetryPolicy policy = new DefaultRetryPolicy(LibConstants.REQUEST_TIMEOUT_TIME, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
 
         LibInit.getInstance().addToRequestQueue(request, url);
@@ -158,11 +158,11 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void onJsonObjectResponse(JSONObject response) {
         try {
-            if (response.getBoolean(Constants.STATUS_CODE)) {
+            if (response.getBoolean(LibConstants.STATUS_CODE)) {
                 if (responseCallback != null)
                     responseCallback.onSuccess(response, apiCode);
             } else
-                onError(response.getString(Constants.MESSAGE));
+                onError(response.getString(LibConstants.MESSAGE));
         } catch (final JSONException e) {
             onError(e.getMessage());
             e.printStackTrace();
