@@ -163,11 +163,11 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void onJsonObjectResponse(JSONObject response) {
         try {
-            if (response.getBoolean(LibConstants.STATUS_CODE)) {
+            //if (response.getBoolean(LibConstants.STATUS_CODE)) {
                 if (responseCallback != null)
                     responseCallback.onSuccess(response, apiCode);
-            } else
-                onError(response.getString(LibConstants.MESSAGE));
+//            } else
+//                onError(response.getString(LibConstants.MESSAGE));
         } catch (final JSONException e) {
             onError(e.getMessage());
             e.printStackTrace();
