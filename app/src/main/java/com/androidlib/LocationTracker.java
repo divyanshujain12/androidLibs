@@ -44,6 +44,7 @@ public class LocationTracker implements
     private LocationSettingsRequest.Builder builder;
     private Context _context;
 
+
     private LocationTracker() {
 
     }
