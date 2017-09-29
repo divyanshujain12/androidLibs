@@ -38,23 +38,21 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     public static int POST = Request.Method.POST;
     public static int PUT = Request.Method.PUT;
     public static int DELETE = Request.Method.DELETE;
-    private ResponseCallback responseCallback;
-
+    private ObjectResponseCallBack objectCallBackInterface;
+    private ArrayResponseCallback arrayCallBackInterface;
     private int apiCode = 0;
     private String url = "";
     private Snackbar continuousSB;
     private static String username, password, authKey;
-
-
     public static CallWebService getInstance(Context context, boolean showProgressBar, int apiCode) {
         CallWebService instance = new CallWebService();
         instance.context = context;
         instance.apiCode = apiCode;
         instance.continuousSB = null;
-        if (context != null && showProgressBar)
+       /* if (context != null && showProgressBar)
             instance.continuousSB = CommonFunctions.getInstance().createLoadingSnackBarWithActivity((Activity) context);
         else
-            instance.continuousSB = null;
+            instance.continuousSB = null;*/
         return instance;
     }
 
@@ -63,21 +61,18 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         password = pass;
         authKey = authKey;
     }
-
-    public void hitJsonObjectRequestAPI(int requestType, final String url, JSONObject json, final ResponseCallback callBackInterface) {
+    public void hitJsonObjectRequestAPI(int requestType, final String url, JSONObject json, final ObjectResponseCallBack callBackInterface) {
         if (InternetCheck.isInternetOn(context)) {
-            responseCallback = callBackInterface;
+            objectCallBackInterface = callBackInterface;
             cancelRequest(url);
             this.url = url;
             if (continuousSB != null)
                 CommonFunctions.showContinuousSB(continuousSB);
 
-            JsonObjectRequest request = new JsonObjectRequest(requestType, url, json == null ? null : (json), this, this) {
+            JsonObjectRequest request = new JsonObjectRequest(requestType, url, json == null ? null : (json), this, this){
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
                     Map<String, String> params = new HashMap<String, String>();
-//                    params.put("userid", username);
-//                    params.put("pass", password);
                     String credentials = username + ":" + password;
                     String auth = "Basic "
                             + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
@@ -86,16 +81,14 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
                     return params;
                 }
             };
-
             addRequestToVolleyQueue(url, request);
         } else {
             CustomToasts.getInstance(context).showErrorToast(context.getString(R.string.no_internet_connection));
         }
     }
 
-    public void hitJsonArrayRequestAPI(int requestType, final String url, JSONArray json, final ResponseCallback callBackinerface) {
-
-        responseCallback = callBackinerface;
+    public void hitJsonArrayRequestAPI(int requestType, final String url, JSONArray json, final ArrayResponseCallback callBackinerface) {
+        arrayCallBackInterface = callBackinerface;
         cancelRequest(url);
 
         this.url = url;
@@ -103,40 +96,13 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         if (continuousSB != null)
             CommonFunctions.showContinuousSB(continuousSB);
 
-        JsonArrayRequest request = new JsonArrayRequest(requestType, url, json == null ? null : (json), this, this) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("userid", username);
-                params.put("pass", password);
-
-                return params;
-            }
-        };
+        JsonArrayRequest request = new JsonArrayRequest(requestType, url, json == null ? null : (json), this, this);
         addRequestToVolleyQueue(url, request);
     }
-
-
-    public void hitCustomRequestAPI(int requestType, final String url, JSONObject json, final ResponseCallback callBackInterface) {
-        if (InternetCheck.isInternetOn(context)) {
-            responseCallback = callBackInterface;
-            cancelRequest(url);
-            this.url = url;
-            if (continuousSB != null)
-                CommonFunctions.showContinuousSB(continuousSB);
-
-            CustomRequest request = new CustomRequest(requestType, url, json == null ? null : (json), this, this);
-            addRequestToVolleyQueue(url, request);
-        } else {
-            CustomToasts.getInstance(context).showErrorToast(context.getString(R.string.no_internet_connection));
-        }
-    }
-
 
     private void addRequestToVolleyQueue(String url, Request request) {
         RetryPolicy policy = new DefaultRetryPolicy(LibConstants.REQUEST_TIMEOUT_TIME, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
-
         LibInit.getInstance().addToRequestQueue(request, url);
     }
 
@@ -164,8 +130,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     private void onJsonObjectResponse(JSONObject response) {
         try {
             //if (response.getBoolean(LibConstants.STATUS_CODE)) {
-                if (responseCallback != null)
-                    responseCallback.onSuccess(response, apiCode);
+            if (objectCallBackInterface != null)
+                objectCallBackInterface.onJsonObjectSuccess(response, apiCode);
 //            } else
 //                onError(response.getString(LibConstants.MESSAGE));
         } catch (final JSONException e) {
@@ -177,16 +143,25 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void onJsonArrayResponse(JSONArray response) {
         try {
-            responseCallback.onSuccess(response, apiCode);
+            arrayCallBackInterface.onJsonArraySuccess(response, apiCode);
         } catch (final JSONException e) {
             onError(e.getMessage());
             e.printStackTrace();
         }
     }
 
-    public interface ResponseCallback {
 
-        void onSuccess(Object data, int apiType) throws JSONException;
+    public interface ObjectResponseCallBack {
+
+        void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException;
+
+        void onFailure(String str, int apiType);
+
+    }
+
+    public interface ArrayResponseCallback {
+
+        void onJsonArraySuccess(JSONArray array, int apiType) throws JSONException;
 
         void onFailure(String str, int apiType);
 
@@ -196,8 +171,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
         if (continuousSB != null)
             CommonFunctions.hideContinuousSB(continuousSB);
-        if (responseCallback != null)
-            responseCallback.onFailure(error, apiCode);
+        if (objectCallBackInterface != null)
+            objectCallBackInterface.onFailure(error, apiCode);
         //  CustomToasts.getInstance(context).showErrorToast(error);
     }
 
@@ -218,11 +193,9 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
-
             }
         };
         handler.postDelayed(runnable, 2000);
     }
-
     Handler handler = new Handler();*/
 }

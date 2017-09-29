@@ -19,7 +19,7 @@ import org.json.JSONObject;
 /**
  * Created by divyanshu on 5/29/2016.
  */
-public class BaseFragment extends Fragment implements CallWebService.ResponseCallback, SnackBarCallback, UpdateUiCallback, RecyclerViewClick{
+public class BaseFragment extends Fragment implements CallWebService.ObjectResponseCallBack,CallWebService.ArrayResponseCallback, SnackBarCallback, UpdateUiCallback, RecyclerViewClick{
 
     @Override
     public void doAction() {
@@ -43,9 +43,13 @@ public class BaseFragment extends Fragment implements CallWebService.ResponseCal
     }
 
 
+    @Override
+    public void onJsonArraySuccess(JSONArray array, int apiType) throws JSONException {
+
+    }
 
     @Override
-    public void onSuccess(Object array, int apiType) throws JSONException {
+    public void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException {
 
     }
 

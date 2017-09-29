@@ -12,13 +12,14 @@ import com.androidlib.Interfaces.SnackBarCallback;
 import com.androidlib.Interfaces.UpdateUiCallback;
 import com.androidlib.Utils.CallWebService;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Created by divyanshu on 5/29/2016.
  */
-public class BaseActivity extends AppCompatActivity implements CallWebService.ResponseCallback, SnackBarCallback, UpdateUiCallback, RecyclerViewClick {
+public class BaseActivity extends AppCompatActivity implements CallWebService.ObjectResponseCallBack,CallWebService.ArrayResponseCallback, SnackBarCallback, UpdateUiCallback, RecyclerViewClick {
 
     @Override
     public void doAction() {
@@ -52,7 +53,12 @@ public class BaseActivity extends AppCompatActivity implements CallWebService.Re
     }
 
     @Override
-    public void onSuccess(Object response, int apiType) throws JSONException {
+    public void onJsonArraySuccess(JSONArray array, int apiType) throws JSONException {
+
+    }
+
+    @Override
+    public void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException {
 
     }
 
