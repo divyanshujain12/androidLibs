@@ -56,7 +56,7 @@ public class CustomDateTimePickerHelper implements TimePickerDialog.OnTimeSetLis
     /*
       Custom Time Picker
     */
-    public void showTimeDialog(Activity context, final TextView textView, int pos) {
+    public void showTimeDialog(Activity context, final TextView textView) {
         dateTimeTV = textView;
         mcurrentDate = Calendar.getInstance();
        // if (pos > 0)
