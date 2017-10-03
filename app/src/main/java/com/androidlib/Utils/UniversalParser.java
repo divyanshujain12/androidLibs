@@ -121,15 +121,12 @@ public class UniversalParser {
         Object classObject = null;
         JSONObject json = undefinedInnerObj;
         Iterator<String> keys = json.keys();
-        Type stringListType = f.getClass().getGenericSuperclass();
         String className = f.getType().getName();
         try {
             Class currentClass = Class.forName(className);
             classObject = currentClass.newInstance();
             while (keys.hasNext()) {
                 try {
-
-
                     Field field = currentClass.getDeclaredField(keys.next());
                     field.setAccessible(true);
                     IterateForJsonObject(classObject, field, undefinedInnerObj);
@@ -137,7 +134,6 @@ public class UniversalParser {
                     e.printStackTrace();
                 }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
