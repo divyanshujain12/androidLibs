@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -81,7 +82,7 @@ public class UniversalParser {
                     if (undefinedInnerObj instanceof JSONArray) {
                         getJsonArrayFromObject(modelClassObject, f, (JSONArray) undefinedInnerObj);
                     } else if (undefinedInnerObj instanceof JSONObject)
-                        getJsonObjectFromObject(modelClassObject, (JSONObject) undefinedInnerObj);
+                        getJsonObjectFromObject(modelClassObject, f, (JSONObject) undefinedInnerObj);
                     else if (undefinedInnerObj != null)
                         f.set(modelClassObject, jsonObject.opt(f.getName()));
                 }
@@ -111,23 +112,36 @@ public class UniversalParser {
         if (undefinedInnerObj instanceof JSONArray) {
             getJsonArrayFromObject(modelClassObject, f, (JSONArray) undefinedInnerObj);
         } else if (undefinedInnerObj instanceof JSONObject) {
-            getJsonObjectFromObject(modelClassObject, (JSONObject) undefinedInnerObj);
+            f.set(modelClassObject, getJsonObjectFromObject(modelClassObject, f, (JSONObject) undefinedInnerObj));
         } else if (undefinedInnerObj != null && !undefinedInnerObj.equals("null"))
             f.set(modelClassObject, undefinedInnerObj);
     }
 
-    private void getJsonObjectFromObject(Object modelClassObject, JSONObject undefinedInnerObj) throws IllegalAccessException {
+    private Object getJsonObjectFromObject(Object modelClassObject, Field f, JSONObject undefinedInnerObj) throws IllegalAccessException {
+        Object classObject = null;
         JSONObject json = undefinedInnerObj;
         Iterator<String> keys = json.keys();
-        while (keys.hasNext()) {
-            try {
-                Field field = modelClass.getDeclaredField(keys.next());
-                field.setAccessible(true);
-                IterateForJsonObject(modelClassObject, field, undefinedInnerObj);
+        Type stringListType = f.getClass().getGenericSuperclass();
+        String className = f.getType().getName();
+        try {
+            Class currentClass = Class.forName(className);
+            classObject = currentClass.newInstance();
+            while (keys.hasNext()) {
+                try {
 
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
+
+                    Field field = currentClass.getDeclaredField(keys.next());
+                    field.setAccessible(true);
+                    IterateForJsonObject(classObject, field, undefinedInnerObj);
+                } catch (NoSuchFieldException e) {
+                    e.printStackTrace();
+                }
             }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        return classObject;
     }
 }
