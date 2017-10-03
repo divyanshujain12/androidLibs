@@ -49,7 +49,7 @@ public class CustomDateTimePickerHelper implements TimePickerDialog.OnTimeSetLis
                 mcurrentDate.get(Calendar.MONTH),
                 mcurrentDate.get(Calendar.DAY_OF_MONTH)
         );
-        dpd.setMinDate(mcurrentDate);
+        //dpd.setMinDate(mcurrentDate);
         dpd.show(context.getFragmentManager(), "DatePickerDialog");
     }
 
