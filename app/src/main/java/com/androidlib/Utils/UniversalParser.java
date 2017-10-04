@@ -82,7 +82,7 @@ public class UniversalParser {
                     if (undefinedInnerObj instanceof JSONArray) {
                         getJsonArrayFromObject(modelClassObject, f, (JSONArray) undefinedInnerObj);
                     } else if (undefinedInnerObj instanceof JSONObject)
-                        getJsonObjectFromObject(modelClassObject, f, (JSONObject) undefinedInnerObj);
+                        f.set(modelClassObject, getJsonObjectFromObject(modelClassObject, f, (JSONObject) undefinedInnerObj));
                     else if (undefinedInnerObj != null)
                         f.set(modelClassObject, jsonObject.opt(f.getName()));
                 }
