@@ -9,6 +9,7 @@ import com.androidlib.Interfaces.RecyclerViewClick;
 import com.androidlib.Interfaces.SnackBarCallback;
 import com.androidlib.Interfaces.UpdateUiCallback;
 import com.androidlib.Utils.CallWebService;
+import com.androidlib.Utils.CommonFunctions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +47,6 @@ public class BaseDialogFragment extends DialogFragment implements CallWebService
 
     @Override
     public void onFailure(String str, int apiType) {
-
+        CommonFunctions.getInstance().showErrorSnackBar(getActivity(), str);
     }
 }

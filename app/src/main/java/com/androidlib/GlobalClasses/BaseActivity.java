@@ -11,6 +11,7 @@ import com.androidlib.Interfaces.RecyclerViewClick;
 import com.androidlib.Interfaces.SnackBarCallback;
 import com.androidlib.Interfaces.UpdateUiCallback;
 import com.androidlib.Utils.CallWebService;
+import com.androidlib.Utils.CommonFunctions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -64,7 +65,7 @@ public class BaseActivity extends AppCompatActivity implements CallWebService.Ob
 
     @Override
     public void onFailure(String str, int apiType) {
-       // CommonFunctions.getInstance().showErrorSnackBar(this, str);
+        CommonFunctions.getInstance().showErrorSnackBar(this, str);
     }
 
     @Override
