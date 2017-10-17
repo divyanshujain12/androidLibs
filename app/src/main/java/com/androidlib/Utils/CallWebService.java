@@ -52,7 +52,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         instance.apiCode = apiCode;
         //instance.continuousSB = null;
         if (context != null && showProgressBar){
-            instance.progressDialog = new ProgressDialog(context);
+            instance.progressDialog = new ProgressDialog(context,R.style.MyAlertDialogStyle);
             instance.progressDialog.setCancelable(false);
             instance.progressDialog.setMessage("Loading Data..");
         }

@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 
+import com.androidlib.CustomViews.CustomToasts;
 import com.androidlib.Interfaces.RecyclerViewClick;
 import com.androidlib.Interfaces.SnackBarCallback;
 import com.androidlib.Interfaces.UpdateUiCallback;
@@ -56,6 +57,7 @@ public class BaseFragment extends Fragment implements CallWebService.ObjectRespo
 
     @Override
     public void onFailure(String str, int apiType) {
-        CommonFunctions.getInstance().showErrorSnackBar(getActivity(), str);
+        CustomToasts.getInstance(getContext()).showErrorToast(str);
+        //CommonFunctions.getInstance().showErrorSnackBar(getActivity(), str);
     }
 }
