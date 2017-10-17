@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-
+import com.androidlib.CustomFontViews.CustomTextviewBold;
 import com.locationlib.R;
 
 import java.text.DateFormat;
@@ -55,7 +55,12 @@ public class Utils {
     public static void configureToolbarWithBackButton(final AppCompatActivity appCompatActivity, Toolbar toolbar, String name) {
         appCompatActivity.setSupportActionBar(toolbar);
         ActionBar actionBar = appCompatActivity.getSupportActionBar();
-        actionBar.setTitle(name);
+
+        CustomTextviewBold customTextviewBold = (CustomTextviewBold) toolbar.findViewById(R.id.customHeaderTV);
+        if (customTextviewBold != null)
+            customTextviewBold.setText(name);
+        else
+            actionBar.setTitle(name);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
