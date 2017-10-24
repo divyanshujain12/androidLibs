@@ -24,7 +24,7 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
         if (!folder.exists())
             folder.mkdir();
         
-        String folderWithPortalName = folderPath + File.separator + id;
+        String folderWithPortalName = folderPath + File.separator + portalName;
         folder = new File(folderWithPortalName);
         if(!folder.exists())
             folder.mkdir();
