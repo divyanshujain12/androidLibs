@@ -1,6 +1,7 @@
 package com.androidlib.Utils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.support.design.widget.Snackbar;
 import android.util.Base64;
@@ -42,17 +43,24 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     private ArrayResponseCallback arrayCallBackInterface;
     private int apiCode = 0;
     private String url = "";
-    private Snackbar continuousSB;
+    //private Snackbar continuousSB;
     private static String username, password, authKey;
+    private ProgressDialog progressDialog;
     public static CallWebService getInstance(Context context, boolean showProgressBar, int apiCode) {
         CallWebService instance = new CallWebService();
         instance.context = context;
         instance.apiCode = apiCode;
-        instance.continuousSB = null;
-       /* if (context != null && showProgressBar)
-            instance.continuousSB = CommonFunctions.getInstance().createLoadingSnackBarWithActivity((Activity) context);
-        else
-            instance.continuousSB = null;*/
+        //instance.continuousSB = null;
+        if (context != null && showProgressBar){
+            instance.progressDialog = new ProgressDialog(context,R.style.MyAlertDialogStyle);
+            instance.progressDialog.setCancelable(false);
+            instance.progressDialog.setMessage("Loading Data..");
+        }
+
+        else{
+            instance.progressDialog = null;
+        }
+
         return instance;
     }
 
@@ -66,8 +74,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
             objectCallBackInterface = callBackInterface;
             cancelRequest(url);
             this.url = url;
-            if (continuousSB != null)
-                CommonFunctions.showContinuousSB(continuousSB);
+            if (progressDialog != null)
+                progressDialog.show();
 
             JsonObjectRequest request = new JsonObjectRequest(requestType, url, json == null ? null : (json), this, this){
                 @Override
@@ -93,8 +101,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
         this.url = url;
 
-        if (continuousSB != null)
-            CommonFunctions.showContinuousSB(continuousSB);
+        if (progressDialog != null)
+            progressDialog.show();
 
         JsonArrayRequest request = new JsonArrayRequest(requestType, url, json == null ? null : (json), this, this);
         addRequestToVolleyQueue(url, request);
@@ -116,8 +124,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     @Override
     public void onResponse(Object response) {
         LibInit.getInstance().getRequestQueue().getCache().invalidate(url, true);
-        if (continuousSB != null)
-            CommonFunctions.hideContinuousSB(continuousSB);
+        if (progressDialog != null)
+            progressDialog.hide();
 
         if (response instanceof JSONObject) {
             onJsonObjectResponse((JSONObject) response);
@@ -169,8 +177,8 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void onError(String error) {
 
-        if (continuousSB != null)
-            CommonFunctions.hideContinuousSB(continuousSB);
+        if (progressDialog != null)
+            progressDialog.hide();
         if (objectCallBackInterface != null)
             objectCallBackInterface.onFailure(error, apiCode);
         //  CustomToasts.getInstance(context).showErrorToast(error);

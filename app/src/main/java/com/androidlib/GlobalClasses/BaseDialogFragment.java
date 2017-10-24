@@ -5,10 +5,12 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 
 
+import com.androidlib.CustomViews.CustomToasts;
 import com.androidlib.Interfaces.RecyclerViewClick;
 import com.androidlib.Interfaces.SnackBarCallback;
 import com.androidlib.Interfaces.UpdateUiCallback;
 import com.androidlib.Utils.CallWebService;
+import com.androidlib.Utils.CommonFunctions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,6 +48,7 @@ public class BaseDialogFragment extends DialogFragment implements CallWebService
 
     @Override
     public void onFailure(String str, int apiType) {
-
+        CustomToasts.getInstance(getContext()).showErrorToast(str);
+       // CommonFunctions.getInstance().showErrorSnackBar(getActivity(), str);
     }
 }
