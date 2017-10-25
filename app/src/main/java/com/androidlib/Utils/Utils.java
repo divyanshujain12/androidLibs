@@ -185,7 +185,7 @@ public class Utils {
         return getDifferenceInString(currentTimeDifference);
     }
 
-    private static String getDifferenceInString(long time) {
+    public static String getDifferenceInString(long time) {
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
         long hoursInMilli = minutesInMilli * 60;
