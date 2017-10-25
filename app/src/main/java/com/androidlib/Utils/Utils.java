@@ -200,15 +200,15 @@ public class Utils {
         long elapsedHours = time / hoursInMilli;
         time = time % hoursInMilli;
         if (elapsedDays != 0) {
-            return String.format(Locale.getDefault(), "%d days: %d hr", elapsedDays, elapsedHours);
+            return String.format(Locale.getDefault(), " %d hr", elapsedHours);
         }
         long elapsedMinutes = time / minutesInMilli;
         time = time % minutesInMilli;
         if (elapsedHours != 0) {
-            return String.format(Locale.getDefault(), "%d hr:%d min", elapsedHours, elapsedMinutes);
+            return String.format(Locale.getDefault(), "%d min", elapsedMinutes);
         }
         long elapsedSeconds = time / secondsInMilli;
-        return String.format(Locale.getDefault(), "%d min:%d sec", elapsedMinutes, elapsedSeconds);
+        return String.format(Locale.getDefault(), "%d sec", elapsedSeconds);
     }
 
 
