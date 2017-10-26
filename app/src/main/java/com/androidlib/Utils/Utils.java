@@ -38,6 +38,12 @@ public class Utils {
     public static final String DEFAULT_DATE = "1940-01-01";
     public static final String POST_CHALLENGE_TIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
     public static final String CURRENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+private static Utils utils;
+    public static Utils getInstance(){
+        if(utils == null)
+            utils = new Utils();
+        return utils;
+    }
 
     public static Bitmap getRoundedCornerBitmap(Context context, int resource) {
         Bitmap mbitmap = ((BitmapDrawable) context.getResources().getDrawable(resource)).getBitmap();
