@@ -138,6 +138,7 @@ public class Utils {
     public static String formatDateAndTime(long date, String format) {
         Date dt = new Date(date);
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
+        sdf.setTimeZone(Calendar.getInstance().getTimeZone());
         return sdf.format(dt);
     }
 
