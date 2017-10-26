@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -265,6 +266,7 @@ public class Utils {
 
         format = new SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        format.setTimeZone(Calendar.getInstance().getTimeZone());
         try {
             Date date = format.parse(time);
             return formatDateAndTime(date.getTime(), dateTimeFormat);
@@ -276,6 +278,7 @@ public class Utils {
     }
     public long getTimeInMS(String selectedDate, String dateFormat) {
         DateFormat format = new SimpleDateFormat(dateFormat, Locale.getDefault());
+        format.setTimeZone(Calendar.getInstance().getTimeZone());
         try {
             return format.parse(selectedDate).getTime();
         } catch (ParseException e) {
@@ -288,6 +291,7 @@ public class Utils {
     public String getTimeDifference(String startTime, String endTime) {
         SimpleDateFormat format = new SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        format.setTimeZone(Calendar.getInstance().getTimeZone());
         try {
             Date startDate = format.parse(startTime);
             Date endDate = format.parse(endTime);
