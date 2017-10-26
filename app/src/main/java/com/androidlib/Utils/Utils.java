@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-
 import com.locationlib.R;
 
 import java.text.DateFormat;
@@ -237,6 +236,34 @@ public class Utils {
             return false;
         else
             return true;
+    }
+
+    public String getTimeFromTformat(String time) {
+
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        try {
+            Date date = format.parse(time);
+            return formatDateAndTime(date.getTime(), TIME_FORMAT);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getTimeDifference(String startTime, String endTime) {
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        try {
+            Date startDate = format.parse(startTime);
+            Date endDate = format.parse(endTime);
+
+            return getDifferenceInString(endDate.getTime() - startDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static long getTimeDifferenceFromCurrent(long timeInMS) {
