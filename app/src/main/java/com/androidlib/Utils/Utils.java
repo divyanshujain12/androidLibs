@@ -38,9 +38,11 @@ public class Utils {
     public static final String DEFAULT_DATE = "1940-01-01";
     public static final String POST_CHALLENGE_TIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
     public static final String CURRENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-private static Utils utils;
-    public static Utils getInstance(){
-        if(utils == null)
+    private SimpleDateFormat format;
+    private static Utils utils;
+
+    public static Utils getInstance() {
+        if (utils == null)
             utils = new Utils();
         return utils;
     }
@@ -137,7 +139,7 @@ private static Utils utils;
         return sdf.format(dt);
     }
 
-    public static Date getCurrentSelectedDate(String selectedDate, String dateFormat) {
+    public Date getCurrentSelectedDate(String selectedDate, String dateFormat) {
         DateFormat format = new SimpleDateFormat(dateFormat, Locale.getDefault());
         try {
             return format.parse(selectedDate);
@@ -244,10 +246,10 @@ private static Utils utils;
             return true;
     }
 
-    public  String getTimeFromTformat(String time) {
+    public String getTimeFromTformat(String time) {
 
-        SimpleDateFormat format = new SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+        format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
         try {
             Date date = format.parse(time);
             return formatDateAndTime(date.getTime(), TIME_FORMAT);
@@ -258,9 +260,25 @@ private static Utils utils;
         return "";
     }
 
-    public  String getTimeDifference(String startTime, String endTime) {
+    public String getTimeFromTFormatToGivenFormat(String time, String dateTimeFormat) {
+
+        format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        try {
+            Date date = format.parse(time);
+            return formatDateAndTime(date.getTime(), dateTimeFormat);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+
+    public String getTimeDifference(String startTime, String endTime) {
         SimpleDateFormat format = new SimpleDateFormat(
-                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
         try {
             Date startDate = format.parse(startTime);
             Date endDate = format.parse(endTime);
