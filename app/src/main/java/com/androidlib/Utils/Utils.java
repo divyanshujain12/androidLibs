@@ -139,7 +139,7 @@ public class Utils {
         return sdf.format(dt);
     }
 
-    public Date getCurrentSelectedDate(String selectedDate, String dateFormat) {
+    public static Date getCurrentSelectedDate(String selectedDate, String dateFormat) {
         DateFormat format = new SimpleDateFormat(dateFormat, Locale.getDefault());
         try {
             return format.parse(selectedDate);
@@ -273,7 +273,15 @@ public class Utils {
         }
         return "";
     }
-
+    public long getTimeInMS(String selectedDate, String dateFormat) {
+        DateFormat format = new SimpleDateFormat(dateFormat, Locale.getDefault());
+        try {
+            return format.parse(selectedDate).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 
 
     public String getTimeDifference(String startTime, String endTime) {
