@@ -244,7 +244,7 @@ private static Utils utils;
             return true;
     }
 
-    public static String getTimeFromTformat(String time) {
+    public  String getTimeFromTformat(String time) {
 
         SimpleDateFormat format = new SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
@@ -258,7 +258,7 @@ private static Utils utils;
         return "";
     }
 
-    public static String getTimeDifference(String startTime, String endTime) {
+    public  String getTimeDifference(String startTime, String endTime) {
         SimpleDateFormat format = new SimpleDateFormat(
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
         try {
