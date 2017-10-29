@@ -48,7 +48,7 @@ public class PictureHelper {
      */
     public void takeFromCamera(Activity activity, String imageNameWithFolder) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(DownloadImage.BarCodeFolderPaths.FOLDER_OMADRE, "Pic.jpg");
+        File photo = new File(DownloadImage.BarCodeFolderPaths.FOLDER_OMADRE, imageNameWithFolder+".jpg");
 
         cameraImageUri = Uri.fromFile(photo);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
