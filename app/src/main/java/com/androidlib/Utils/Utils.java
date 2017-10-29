@@ -13,7 +13,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-
 import com.locationlib.R;
 
 import java.text.DateFormat;
@@ -22,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,6 +39,15 @@ public class Utils {
     public static final String DEFAULT_DATE = "1940-01-01";
     public static final String POST_CHALLENGE_TIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
     public static final String CURRENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String CURRENT_DATE_FORMAT_NON_STATIC = "yyyy-MM-dd HH:mm:ss";
+    private SimpleDateFormat format;
+    private static Utils utils;
+
+    public static Utils getInstance() {
+        if (utils == null)
+            utils = new Utils();
+        return utils;
+    }
 
     public static Bitmap getRoundedCornerBitmap(Context context, int resource) {
         Bitmap mbitmap = ((BitmapDrawable) context.getResources().getDrawable(resource)).getBitmap();
@@ -129,6 +138,7 @@ public class Utils {
     public static String formatDateAndTime(long date, String format) {
         Date dt = new Date(date);
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.getDefault());
+        sdf.setTimeZone(Calendar.getInstance().getTimeZone());
         return sdf.format(dt);
     }
 
@@ -185,7 +195,7 @@ public class Utils {
         return getDifferenceInString(currentTimeDifference);
     }
 
-    private static String getDifferenceInString(long time) {
+    public static String getDifferenceInString(long time) {
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
         long hoursInMilli = minutesInMilli * 60;
@@ -200,15 +210,15 @@ public class Utils {
         long elapsedHours = time / hoursInMilli;
         time = time % hoursInMilli;
         if (elapsedDays != 0) {
-            return String.format(Locale.getDefault(), "%d days: %d hr", elapsedDays, elapsedHours);
+            return String.format(Locale.getDefault(), " %d hr", elapsedHours);
         }
         long elapsedMinutes = time / minutesInMilli;
         time = time % minutesInMilli;
         if (elapsedHours != 0) {
-            return String.format(Locale.getDefault(), "%d hr:%d min", elapsedHours, elapsedMinutes);
+            return String.format(Locale.getDefault(), "%d min", elapsedMinutes);
         }
         long elapsedSeconds = time / secondsInMilli;
-        return String.format(Locale.getDefault(), "%d min:%d sec", elapsedMinutes, elapsedSeconds);
+        return String.format(Locale.getDefault(), "%d sec", elapsedSeconds);
     }
 
 
@@ -237,6 +247,62 @@ public class Utils {
             return false;
         else
             return true;
+    }
+
+    public String getTimeFromTformat(String time) {
+
+        format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        try {
+            Date date = format.parse(time);
+            return formatDateAndTime(date.getTime(), TIME_FORMAT);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    public String getTimeFromTFormatToGivenFormat(String time, String dateTimeFormat) {
+
+        format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        format.setTimeZone(Calendar.getInstance().getTimeZone());
+        try {
+            Date date = format.parse(time);
+            return formatDateAndTime(date.getTime(), dateTimeFormat);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+    public long getTimeInMS(String selectedDate, String dateFormat) {
+        DateFormat format = new SimpleDateFormat(dateFormat, Locale.getDefault());
+        format.setTimeZone(Calendar.getInstance().getTimeZone());
+        try {
+            return format.parse(selectedDate).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+
+    public String getTimeDifference(String startTime, String endTime) {
+        SimpleDateFormat format = new SimpleDateFormat(
+                "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
+        format.setTimeZone(Calendar.getInstance().getTimeZone());
+        try {
+            Date startDate = format.parse(startTime);
+            Date endDate = format.parse(endTime);
+
+            return getDifferenceInString(endDate.getTime() - startDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static long getTimeDifferenceFromCurrent(long timeInMS) {
