@@ -19,8 +19,6 @@ import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 
-import com.androidlib.Utils.Utils;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -50,7 +48,7 @@ public class PictureHelper {
      */
     public void takeFromCamera(Activity activity, String imageNameWithFolder) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(DownloadImage.BarCodeFolderPaths.FOLDER_OMADRE, imageNameWithFolder + ".jpg");
+        File photo = new File(DownloadImage.BarCodeFolderPaths.FOLDER_OMADRE, "Pic.jpg");
 
         cameraImageUri = Uri.fromFile(photo);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
@@ -367,5 +365,11 @@ public class PictureHelper {
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         return encoded;
+    }
+
+    public void createFolder(String path) {
+        File file = new File(DownloadImage.BarCodeFolderPaths.FOLDER_OMADRE + path);
+        if (!file.exists())
+            file.mkdir();
     }
 }
