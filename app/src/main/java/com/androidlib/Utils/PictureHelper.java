@@ -19,6 +19,8 @@ import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 
+import com.androidlib.Utils.Utils;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -46,9 +48,10 @@ public class PictureHelper {
     /**
      * Request picture from camera using the given title
      */
-    public void takeFromCamera(Activity activity, String title) {
+    public void takeFromCamera(Activity activity, String imageNameWithFolder) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+        File photo = new File(DownloadImage.BarCodeFolderPaths.FOLDER_OMADRE, imageNameWithFolder + ".jpg");
+
         cameraImageUri = Uri.fromFile(photo);
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
@@ -83,7 +86,7 @@ public class PictureHelper {
             Uri result = null;
             Bitmap bitmap;
             if (requestCode == REQUEST_CAMERA) {
-               // bitmap = (Bitmap) data.getExtras().get("data");
+                // bitmap = (Bitmap) data.getExtras().get("data");
                 //Log.d(TAG, String.valueOf(bitmapSizeInKB(bitmap)));
                 result = cameraImageUri;
             } else
@@ -301,7 +304,7 @@ public class PictureHelper {
     private Bitmap getBitmap(Context context, Uri uri) {
         InputStream in = null;
         try {
-            final int IMAGE_MAX_SIZE = 40000;
+            final int IMAGE_MAX_SIZE = 400000;
             in = context.getContentResolver().openInputStream(uri);
 
             // Decode image size
@@ -339,7 +342,7 @@ public class PictureHelper {
 
                 Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
                         (int) y, true);
-                b.recycle();
+                //b.recycle();
                 b = scaledBitmap;
 
                 System.gc();
