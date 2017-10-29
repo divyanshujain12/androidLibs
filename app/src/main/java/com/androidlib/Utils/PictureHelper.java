@@ -301,7 +301,7 @@ public class PictureHelper {
     private Bitmap getBitmap(Context context, Uri uri) {
         InputStream in = null;
         try {
-            final int IMAGE_MAX_SIZE = 400000;
+            final int IMAGE_MAX_SIZE = 40000;
             in = context.getContentResolver().openInputStream(uri);
 
             // Decode image size
