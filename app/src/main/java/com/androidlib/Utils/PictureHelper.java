@@ -15,6 +15,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.FileProvider;
 import android.util.Base64;
 import android.util.Log;
 
@@ -45,12 +46,18 @@ public class PictureHelper {
     /**
      * Request picture from camera using the given title
      */
-    public void takeFromCamera(Activity activity, String title) {
+    public void takeFromCamera(Activity activity, String imageNameWithFolder) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,
-                Uri.fromFile(photo));
+        File photo = new File(Environment.getExternalStorageDirectory(), "Pic.jpg");
+
         cameraImageUri = Uri.fromFile(photo);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
+        } else {
+            File file = new File(cameraImageUri.getPath());
+            Uri photoUri = FileProvider.getUriForFile(activity, activity.getPackageName() + ".provider", file);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        }
         // intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraImageUri);
         intent.putExtra("return-data", true);
         activity.startActivityForResult(intent, REQUEST_CAMERA);
@@ -77,7 +84,7 @@ public class PictureHelper {
             Uri result = null;
             Bitmap bitmap;
             if (requestCode == REQUEST_CAMERA) {
-               // bitmap = (Bitmap) data.getExtras().get("data");
+                // bitmap = (Bitmap) data.getExtras().get("data");
                 //Log.d(TAG, String.valueOf(bitmapSizeInKB(bitmap)));
                 result = cameraImageUri;
             } else
@@ -333,7 +340,7 @@ public class PictureHelper {
 
                 Bitmap scaledBitmap = Bitmap.createScaledBitmap(b, (int) x,
                         (int) y, true);
-                b.recycle();
+                //b.recycle();
                 b = scaledBitmap;
 
                 System.gc();
@@ -358,5 +365,11 @@ public class PictureHelper {
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         return encoded;
+    }
+
+    public void createFolder(String path) {
+        File file = new File(DownloadImage.BarCodeFolderPaths.FOLDER_OMADRE + path);
+        if (!file.exists())
+            file.mkdir();
     }
 }
