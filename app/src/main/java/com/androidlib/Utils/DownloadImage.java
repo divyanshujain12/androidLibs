@@ -32,7 +32,7 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
         String folderWithID = folderWithPortalName + File.separator + id;
         folder = new File(folderWithID);
         if(!folder.exists())
-            folder.mkdir();
+            folder.mkdirs();
     }
 
     @Override
