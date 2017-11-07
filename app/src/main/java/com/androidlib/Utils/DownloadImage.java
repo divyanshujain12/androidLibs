@@ -3,7 +3,6 @@ package com.androidlib.Utils;
 import android.os.AsyncTask;
 import android.os.Environment;
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -52,6 +51,8 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
             // get the input stream and pass to file output stream
             imageURL = new URL(imageUrl);
             imageFile = new File(folder.getAbsolutePath(), imageUrl.substring(imageUrl.length() - 1, imageUrl.length()) + ".png");
+            if (!imageFile.exists())
+                imageFile.createNewFile();
             fos = new FileOutputStream(imageFile);
 
             // get the input stream and pass to file output stream
