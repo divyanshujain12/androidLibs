@@ -17,6 +17,7 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
     private File folder;
 
 
+
     public DownloadImage(String id, String imageUrl,String portalName) {
         this.imageUrl = imageUrl;
         String folderPath = BarCodeFolderPaths.FOLDER_OMADRE;
@@ -33,6 +34,8 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
         folder = new File(folderWithID);
         if(!folder.exists())
             folder.mkdirs();
+        if(!folder.exists())
+            folder.mkdir();
     }
 
     @Override
