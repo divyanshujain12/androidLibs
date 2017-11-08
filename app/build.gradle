@@ -45,7 +45,7 @@ dependencies {
     compile 'dev.dworks.libs:volleyplus:+'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'me.relex:circleindicator:1.2.2@aar'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
