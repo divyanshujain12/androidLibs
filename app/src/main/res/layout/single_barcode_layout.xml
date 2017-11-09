@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/barcodeIV"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/three_hundred"
+        android:contentDescription="@string/barcode"
+        android:scaleType="fitXY" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.androidlib.CustomFontViews.CustomButtonRegular
+            android:id="@+id/printBT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten_dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_grey_transparent_bg"
+            android:text="@string/print_barcode" />
+
+        <com.androidlib.CustomFontViews.CustomButtonRegular
+            android:id="@+id/cancelBT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/ten_dp"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_grey_transparent_bg"
+            android:text="@string/cancel" />
+    </LinearLayout>
+</LinearLayout>

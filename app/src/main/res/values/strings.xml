@@ -6,4 +6,6 @@
     <string name="camera">Camera</string>
     <string name="gallery">Gallery</string>
     <string name="cancel">Cancel</string>
+    <string name="barcode">Barcode</string>
+    <string name="print_barcode">Print Barcode</string>
 </resources>

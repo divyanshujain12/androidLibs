@@ -1,6 +1,5 @@
 package com.androidlib.CustomViews;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.drawable.ColorDrawable;
@@ -11,25 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.WebView;
-import android.widget.ProgressBar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import com.androidlib.CustomFontViews.CustomButtonRegular;
 import com.androidlib.Interfaces.AlertDialogInterface;
 import com.androidlib.Interfaces.ImagePickDialogInterface;
 import com.androidlib.Interfaces.SnackBarCallback;
+import com.androidlib.Utils.ImageLoading;
 import com.locationlib.R;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
 
 
 public class CustomAlertDialogs {
     static AlertDialog alertDialog;
+    private static ImageLoading imageLoading;
 
     @SuppressWarnings("deprecation")
     public static void showAlertDialog(Context context, String title, String message, final SnackBarCallback snackBarCallback) {
@@ -150,6 +145,37 @@ public class CustomAlertDialogs {
         alertDialog.show();
     }
 
+
+    public static void showSingleBarcodeDialog(Context context, String qrCodePath, final AlertDialogInterface alertDialogInterface) {
+        imageLoading = new ImageLoading(context);
+        alertDialog = new AlertDialog.Builder(context).create();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View layout = inflater.inflate(R.layout.single_barcode_layout, null);
+        setupFullInCenterWidthDialog();
+        ImageView barcodeIV = (ImageView) layout.findViewById(R.id.barcodeIV);
+        imageLoading.LoadImage(qrCodePath, barcodeIV, null);
+        CustomButtonRegular printBT = (CustomButtonRegular) layout.findViewById(R.id.printBT);
+        CustomButtonRegular cancelBT = (CustomButtonRegular) layout.findViewById(R.id.cancelBT);
+        printBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogInterface.Yes();
+                dismissDialog();
+
+            }
+        });
+
+        cancelBT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialogInterface.No();
+                dismissDialog();
+            }
+        });
+        alertDialog.setView(layout);
+        alertDialog.show();
+    }
+
     private static void showErrorToast(Context context, String errorMsg) {
         Toast.makeText(context, errorMsg, Toast.LENGTH_SHORT).show();
     }
@@ -165,6 +191,19 @@ public class CustomAlertDialogs {
         Window window = alertDialog.getWindow();
         WindowManager.LayoutParams wlp = window.getAttributes();
         wlp.gravity = Gravity.BOTTOM;
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        window.setAttributes(wlp);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
+
+    }
+
+    private static void setupFullInCenterWidthDialog() {
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        Window window = alertDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(wlp);
