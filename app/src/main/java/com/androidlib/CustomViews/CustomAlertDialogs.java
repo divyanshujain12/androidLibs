@@ -2,6 +2,7 @@ package com.androidlib.CustomViews;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
@@ -207,7 +208,7 @@ public class CustomAlertDialogs {
         wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
         wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         window.setAttributes(wlp);
-        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         alertDialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 
     }
