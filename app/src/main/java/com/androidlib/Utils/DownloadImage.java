@@ -11,19 +11,29 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class DownloadImage extends AsyncTask<String, Void, Void> {
+public class DownloadImage extends AsyncTask<String, Void, Boolean> {
     private String imageUrl;
     private File folder;
-
+    private FileDownloadStatus fileDownloadStatus = null;
+    boolean status = true;
 
 
     public DownloadImage(String id, String imageUrl,String portalName) {
+        initVariables(id, imageUrl, portalName);
+    }
+
+    public DownloadImage(String id, String imageUrl, String portalName, FileDownloadStatus fileDownloadStatus) {
+        this.fileDownloadStatus = fileDownloadStatus;
+        initVariables(id, imageUrl, portalName);
+    }
+
+    private void initVariables(String id, String imageUrl, String portalName) {
         this.imageUrl = imageUrl;
         String folderPath = BarCodeFolderPaths.FOLDER_OMADRE;
         folder = new File(folderPath);
         if (!folder.exists())
             folder.mkdir();
-        
+
         String folderWithPortalName = folderPath + File.separator + portalName;
         folder = new File(folderWithPortalName);
         if(!folder.exists())
@@ -38,7 +48,7 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(String... strings) {
+    protected Boolean doInBackground(String... strings) {
 
         URL imageURL;
         File imageFile = null;
@@ -64,8 +74,14 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
                 fos.write(b);
 
         } catch (FileNotFoundException e) {
+            status = false;
+
         } catch (MalformedURLException e) {
+            status = false;
+
         } catch (IOException e) {
+            status = false;
+
         } finally {
             // close the streams
             try {
@@ -74,10 +90,28 @@ public class DownloadImage extends AsyncTask<String, Void, Void> {
                 if (is != null)
                     is.close();
             } catch (IOException e) {
+                status = false;
             }
         }
 
-        return null;
+        return status;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean status) {
+        super.onPostExecute(status);
+        if (fileDownloadStatus != null) {
+            if (status)
+                fileDownloadStatus.onDownloadCompleted();
+            else
+                fileDownloadStatus.onDownloadFailure();
+        }
+    }
+
+    interface FileDownloadStatus {
+        void onDownloadCompleted();
+
+        void onDownloadFailure();
     }
 
     interface BarCodeFolderPaths {
