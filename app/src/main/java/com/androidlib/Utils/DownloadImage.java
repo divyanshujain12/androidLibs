@@ -114,7 +114,7 @@ public class DownloadImage extends AsyncTask<String, Void, Boolean> {
         void onDownloadFailure();
     }
 
-    interface BarCodeFolderPaths {
+    public interface BarCodeFolderPaths {
         String MAIN_FOLDER = Environment.getExternalStorageDirectory().getAbsolutePath();
         String FOLDER_OMADRE = MAIN_FOLDER + File.separator + "Omadre";
 
