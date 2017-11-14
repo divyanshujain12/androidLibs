@@ -108,7 +108,7 @@ public class DownloadImage extends AsyncTask<String, Void, Boolean> {
         }
     }
 
-    interface FileDownloadStatus {
+    public interface FileDownloadStatus {
         void onDownloadCompleted();
 
         void onDownloadFailure();
