@@ -48,6 +48,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
-    compile 'me.ithebk:barchart:0.9'
-    compile files('libs/achartengine-1.2.0.jar')
+    compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
 }
