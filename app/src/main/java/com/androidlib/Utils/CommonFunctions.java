@@ -15,7 +15,12 @@ import android.widget.TextView;
 import com.androidlib.Fragments.RuntimePermissionHeadlessFragment;
 import com.locationlib.R;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * Created by divyanshu on 9/3/2016.
@@ -165,5 +170,20 @@ public class CommonFunctions {
             }
         }
         return bitmap;
+    }
+
+    public ArrayList<String> getListFiles(File parentDir) {
+        ArrayList<String> inFiles = new ArrayList<>();
+        Queue<File> files = new LinkedList<>();
+        files.addAll(Arrays.asList(parentDir.listFiles()));
+        while (!files.isEmpty()) {
+            File file = files.remove();
+            if (file.isDirectory()) {
+                files.addAll(Arrays.asList(file.listFiles()));
+            } else if (file.getName().endsWith(".png")) {
+                inFiles.add(file.getAbsolutePath());
+            }
+        }
+        return inFiles;
     }
 }
