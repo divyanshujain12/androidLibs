@@ -16,6 +16,7 @@ public class MyPrinterMsgHandler extends MsgHandle {
     Context context;
     PrinterStatusCallback printerStatusCallback;
     String result = "";
+    String battery;
 
     public MyPrinterMsgHandler(Context context, MsgDialog Dialog, PrinterStatusCallback printerStatusCallback) {
         super(context, Dialog);
@@ -33,12 +34,13 @@ public class MyPrinterMsgHandler extends MsgHandle {
     @Override
     public void setBattery(String battery) {
         super.setBattery(battery);
-        printerStatusCallback.status(result, battery);
+        this.battery = battery;
         dialog.close();
     }
 
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
+        printerStatusCallback.status(result, battery);
     }
 }
