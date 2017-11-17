@@ -47,8 +47,8 @@ public class MyPrinterMsgHandler extends MsgHandle {
         int what = msg.what;
         switch (what) {
             case Common.MSG_PRINT_END:
-                printerStatusCallback.status(result, battery);
                 CommonFunctions.getInstance().hideDialog();
+                printerStatusCallback.status(result, battery);
                 break;
         }
 
