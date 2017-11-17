@@ -160,8 +160,8 @@ public class CustomAlertDialogs {
         printBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogInterface.Yes();
                 dismissDialog();
+                alertDialogInterface.Yes();
 
             }
         });
@@ -169,8 +169,8 @@ public class CustomAlertDialogs {
         cancelBT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                alertDialogInterface.No();
                 dismissDialog();
+                alertDialogInterface.No();
             }
         });
         alertDialog.setView(layout);
