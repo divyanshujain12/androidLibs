@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Message;
 
 import com.androidlib.Interfaces.PrinterStatusCallback;
+import com.androidlib.brotherPrinter.common.Common;
 import com.androidlib.brotherPrinter.common.MsgDialog;
 import com.androidlib.brotherPrinter.common.MsgHandle;
 
@@ -41,6 +42,13 @@ public class MyPrinterMsgHandler extends MsgHandle {
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
-        printerStatusCallback.status(result, battery);
+        int what = msg.what;
+        switch (what) {
+            case Common.MSG_PRINT_END:
+                printerStatusCallback.status(result, battery);
+                break;
+        }
+
+
     }
 }
