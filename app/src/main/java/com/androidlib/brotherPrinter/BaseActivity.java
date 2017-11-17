@@ -187,10 +187,12 @@ public abstract class BaseActivity extends com.androidlib.GlobalClasses.BaseActi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        LibSharedPreferences.getInstance().setString(this, BasePrint.IP_ADDRESS, data.getStringExtra(BasePrint.IP_ADDRESS));
-        LibSharedPreferences.getInstance().setString(this, BasePrint.MAC_ADDRESS, data.getStringExtra(BasePrint.MAC_ADDRESS));
-        LibSharedPreferences.getInstance().setString(this, BasePrint.MODEL_NUMBER, data.getStringExtra(BasePrint.MODEL_NUMBER));
-        onCheckClick();
+        if (resultCode == RESULT_OK) {
+            LibSharedPreferences.getInstance().setString(this, BasePrint.IP_ADDRESS, data.getStringExtra(BasePrint.IP_ADDRESS));
+            LibSharedPreferences.getInstance().setString(this, BasePrint.MAC_ADDRESS, data.getStringExtra(BasePrint.MAC_ADDRESS));
+            LibSharedPreferences.getInstance().setString(this, BasePrint.MODEL_NUMBER, data.getStringExtra(BasePrint.MODEL_NUMBER));
+            onCheckClick();
+        }
     }
 
     public void onCheckClick() {
