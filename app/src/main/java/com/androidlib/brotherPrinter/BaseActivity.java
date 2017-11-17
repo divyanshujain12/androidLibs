@@ -19,19 +19,27 @@ import android.content.IntentFilter;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 
+import com.androidlib.CustomViews.CustomAlertDialogs;
+import com.androidlib.Interfaces.PrintStatus;
+import com.androidlib.Interfaces.PrinterStatusCallback;
+import com.androidlib.Interfaces.SnackBarCallback;
 import com.androidlib.Utils.LibSharedPreferences;
+import com.androidlib.Utils.MyPrinterMsgHandler;
 import com.androidlib.brotherPrinter.common.Common;
 import com.androidlib.brotherPrinter.common.MsgDialog;
 import com.androidlib.brotherPrinter.common.MsgHandle;
 import com.androidlib.brotherPrinter.printprocess.BasePrint;
+import com.androidlib.brotherPrinter.printprocess.ImagePrint;
 import com.brother.ptouch.sdk.PrinterInfo;
 import com.locationlib.R;
 
 
-public abstract class BaseActivity extends com.androidlib.GlobalClasses.BaseActivity {
+public abstract class BaseActivity extends com.androidlib.GlobalClasses.BaseActivity implements PrinterStatusCallback, PrintStatus {
 
     static final String ACTION_USB_PERMISSION = "com.android.example.USB_PERMISSION";
     private final BroadcastReceiver mUsbReceiver = new BroadcastReceiver() {
@@ -53,6 +61,17 @@ public abstract class BaseActivity extends com.androidlib.GlobalClasses.BaseActi
     public BasePrint myPrint = null;
     public MsgHandle mHandle;
     public MsgDialog mDialog;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mDialog = new MsgDialog(this);
+        mHandle = new MyPrinterMsgHandler(this, mDialog, this);
+        myPrint = new ImagePrint(this, mHandle, mDialog, this);
+        BluetoothAdapter bluetoothAdapter = getBluetoothAdapter();
+        myPrint.setBluetoothAdapter(bluetoothAdapter);
+    }
 
     public abstract void selectFileButtonOnClick();
 
@@ -175,5 +194,39 @@ public abstract class BaseActivity extends com.androidlib.GlobalClasses.BaseActi
         LibSharedPreferences.getInstance().setString(this, BasePrint.IP_ADDRESS, data.getStringExtra(BasePrint.IP_ADDRESS));
         LibSharedPreferences.getInstance().setString(this, BasePrint.MAC_ADDRESS, data.getStringExtra(BasePrint.MAC_ADDRESS));
         LibSharedPreferences.getInstance().setString(this, BasePrint.MODEL_NUMBER, data.getStringExtra(BasePrint.MODEL_NUMBER));
+        onCheckClick();
     }
+
+    public void onCheckClick() {
+        myPrint.getPrinterStatus();
+    }
+
+    public void onFindClick() {
+        Intent intent = new Intent(this, Activity_NetPrinterList.class);
+        startActivityForResult(intent, 2);
+    }
+
+    @Override
+    public void status(String s, String s1) {
+        if (s.equals(PrinterInfo.ErrorCode.ERROR_NONE.toString())) {
+            ((ImagePrint) myPrint).doPrint();
+        } else {
+            if (s.equals(PrinterInfo.ErrorCode.ERROR_BROTHER_PRINTER_NOT_FOUND.toString()) || s.equals(PrinterInfo.ErrorCode.ERROR_NO_ADDRESS.toString())) {
+                CustomAlertDialogs.showAlertDialog(BaseActivity.this, getString(R.string.printer_error), getString(R.string.printer_not_found_error), new SnackBarCallback() {
+                    @Override
+                    public void doAction() {
+                        onFindClick();
+                    }
+                });
+            } else
+                CustomAlertDialogs.showAlertDialog(BaseActivity.this, getString(R.string.printer_error), s, new SnackBarCallback() {
+                    @Override
+                    public void doAction() {
+                        onFindClick();
+                    }
+                });
+
+        }
+    }
+
 }

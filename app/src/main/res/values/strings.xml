@@ -598,4 +598,8 @@
     <string name="print_barcodes">Print Barcodes</string>
     <string name="check">CHECK</string>
     <string name="find">FIND</string>
+
+    <string name="printer_not_found_error">There is some error in finding printer! Please connect you device printer and try to find printer</string>
+    <string name="printer_error">Printer Error</string>
+    <string name="printer_not_configured_error">There is no printer is configured! Would you like to search nearby printer</string>
 </resources>
