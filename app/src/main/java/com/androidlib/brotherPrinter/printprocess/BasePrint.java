@@ -16,6 +16,7 @@ import android.hardware.usb.UsbManager;
 import android.os.Message;
 import android.preference.PreferenceManager;
 
+import com.androidlib.Utils.CommonFunctions;
 import com.androidlib.Utils.LibSharedPreferences;
 import com.androidlib.brotherPrinter.common.Common;
 import com.androidlib.brotherPrinter.common.MsgDialog;
@@ -255,6 +256,7 @@ public abstract class BasePrint {
      * Launch the thread to get the printer's status
      */
     public void getPrinterStatus() {
+        CommonFunctions.getInstance().showDialog(mContext, "Checking Printer...", false);
         mCancel = false;
         getStatusThread getTread = new getStatusThread();
         getTread.start();
