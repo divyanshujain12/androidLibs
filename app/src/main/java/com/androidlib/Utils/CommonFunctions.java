@@ -189,9 +189,9 @@ public class CommonFunctions {
         return inFiles;
     }
 
-    public void showDialog(Context context, String message) {
+    public void showDialog(Context context, String message,boolean cancelable) {
         progressDialog = new ProgressDialog(context, com.locationlib.R.style.MyAlertDialogStyle);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(cancelable);
         progressDialog.setMessage(message);
         progressDialog.show();
     }
