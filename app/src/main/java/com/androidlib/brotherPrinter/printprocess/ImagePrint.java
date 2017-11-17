@@ -11,10 +11,10 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.androidlib.CustomViews.CustomToasts;
+import com.androidlib.Interfaces.PrintStatus;
 import com.androidlib.brotherPrinter.common.MsgDialog;
 import com.androidlib.brotherPrinter.common.MsgHandle;
 import com.brother.ptouch.sdk.PrinterInfo.ErrorCode;
-
 
 import java.util.ArrayList;
 
@@ -22,10 +22,12 @@ public class ImagePrint extends BasePrint {
     private ProgressDialog progressDialog;
     private ArrayList<String> mImageFiles;
     private Context context;
+    private PrintStatus printStatus;
 
-    public ImagePrint(Context context, MsgHandle mHandle, MsgDialog mDialog) {
+    public ImagePrint(Context context, MsgHandle mHandle, MsgDialog mDialog,PrintStatus printStatus) {
         super(context, mHandle, mDialog);
         this.context = context;
+        this.printStatus = printStatus;
     }
 
     /**
@@ -92,8 +94,10 @@ public class ImagePrint extends BasePrint {
             if (progressDialog != null)
                 progressDialog.dismiss();
             if (s.equals("")) {
+                printStatus.onSuccess();
                 CustomToasts.getInstance(context).showSuccessToast("Barcode Printed Successfully");
             } else {
+                printStatus.onFailure();
                 CustomToasts.getInstance(context).showErrorToast(s);
             }
         }
