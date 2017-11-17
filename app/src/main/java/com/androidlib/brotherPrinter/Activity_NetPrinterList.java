@@ -30,7 +30,6 @@ public class Activity_NetPrinterList extends ListActivity {
 
     // information
     private final MsgDialog msgDialog = new MsgDialog(this);
-    private String modelName; // the print model name.
     private NetPrinter[] mNetPrinter; // array of storing Printer informations.
     private ArrayList<String> mItems = null; // List of storing the printer's
     private SearchThread searchPrinter;
@@ -47,7 +46,7 @@ public class Activity_NetPrinterList extends ListActivity {
 
         // get the modelName
         final Bundle extras = getIntent().getExtras();
-        modelName = extras.getString(Common.MODEL_NAME);
+
         setContentView(R.layout.activity_netprinterlist);
 
 
