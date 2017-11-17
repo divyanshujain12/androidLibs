@@ -1,6 +1,8 @@
 package com.androidlib.Utils;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaMetadataRetriever;
@@ -10,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
-
 
 import com.androidlib.Fragments.RuntimePermissionHeadlessFragment;
 import com.locationlib.R;
@@ -29,6 +30,7 @@ public class CommonFunctions {
     private CommonFunctions() {
     }
 
+    private static ProgressDialog progressDialog;
     private Snackbar customErrorSnackbar = null;
     private Snackbar customSuccessSnackbar = null;
 
@@ -185,5 +187,17 @@ public class CommonFunctions {
             }
         }
         return inFiles;
+    }
+
+    public void showDialog(Context context, String message) {
+        progressDialog = new ProgressDialog(context, com.locationlib.R.style.MyAlertDialogStyle);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage(message);
+        progressDialog.show();
+    }
+
+    public void hideDialog() {
+        if (progressDialog != null)
+            progressDialog.dismiss();
     }
 }
