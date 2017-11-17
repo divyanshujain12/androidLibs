@@ -295,14 +295,8 @@ public abstract class BasePrint {
     @SuppressWarnings("UnusedAssignment")
     public String showResult() {
 
-        String result;
-        if (mPrintResult.errorCode == ErrorCode.ERROR_NONE) {
-            result = mContext.getString(R.string.error_message_none);
-        } else {
-            result = mPrintResult.errorCode.toString();
-        }
 
-        return result;
+        return mPrintResult.errorCode.toString();
     }
 
     /**
