@@ -36,16 +36,19 @@ public class MyPrinterMsgHandler extends MsgHandle {
     public void setBattery(String battery) {
         super.setBattery(battery);
         this.battery = battery;
-        dialog.close();
+
     }
 
     @Override
     public void handleMessage(Message msg) {
         super.handleMessage(msg);
+        if (dialog != null)
+            dialog.close();
         int what = msg.what;
         switch (what) {
             case Common.MSG_PRINT_END:
                 printerStatusCallback.status(result, battery);
+
                 break;
         }
 
