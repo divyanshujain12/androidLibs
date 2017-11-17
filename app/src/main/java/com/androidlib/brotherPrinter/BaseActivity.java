@@ -73,10 +73,6 @@ public abstract class BaseActivity extends com.androidlib.GlobalClasses.BaseActi
         myPrint.setBluetoothAdapter(bluetoothAdapter);
     }
 
-    public abstract void selectFileButtonOnClick();
-
-    public abstract void printButtonOnClick();
-
     /**
      * Called when [Printer Settings] button is tapped
      */
