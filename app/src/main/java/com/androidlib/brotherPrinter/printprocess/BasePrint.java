@@ -465,7 +465,7 @@ public abstract class BasePrint {
             mHandle.setBattery(getBattery());
             msg = mHandle.obtainMessage(Common.MSG_PRINT_END);
             mHandle.sendMessage(msg);
-
+            cancel();
         }
     }
 
