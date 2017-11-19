@@ -1,5 +1,7 @@
 package com.androidlib.CustomViews;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidlib.CustomFontViews.CustomButtonRegular;
+import com.androidlib.CustomFontViews.CustomTextviewRegular;
 import com.androidlib.Interfaces.AlertDialogInterface;
 import com.androidlib.Interfaces.ImagePickDialogInterface;
 import com.androidlib.Interfaces.SnackBarCallback;
@@ -173,6 +176,40 @@ public class CustomAlertDialogs {
                 alertDialogInterface.No();
             }
         });
+        alertDialog.setView(layout);
+        alertDialog.show();
+    }
+
+    public static void showUniqueCodeDialog(final Context context, String userName, final String uniqueCode, final AlertDialogInterface alertDialogInterface) {
+        alertDialog = new AlertDialog.Builder(context).create();
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View layout = inflater.inflate(R.layout.unique_code_generate_layout, null);
+        setupFullInCenterWidthDialog();
+        CustomTextviewRegular userNameTV = (CustomTextviewRegular) layout.findViewById(R.id.userNameTV);
+        CustomTextviewRegular uniqueCodeTV = (CustomTextviewRegular) layout.findViewById(R.id.uniqueCodeTV);
+
+        userNameTV.setText(userName);
+        uniqueCodeTV.setText(uniqueCode);
+        layout.findViewById(R.id.copyCodeBT).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                ClipboardManager clipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clipData = ClipData.newPlainText(context.getString(R.string.unique_code), uniqueCode);
+                clipboardManager.setPrimaryClip(clipData);
+
+                CustomToasts.getInstance(context).showSuccessToast("Unique Code Has Been Copied");
+                alertDialogInterface.Yes();
+            }
+        });
+        layout.findViewById(R.id.okBT).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+                alertDialogInterface.No();
+            }
+        });
+
         alertDialog.setView(layout);
         alertDialog.show();
     }

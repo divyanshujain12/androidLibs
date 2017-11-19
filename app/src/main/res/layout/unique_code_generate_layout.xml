@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:padding="@dimen/five_dp"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.androidlib.CustomFontViews.CustomTextviewRegular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/name"
+            android:textSize="@dimen/eighteen_sp"
+            android:textColor="@android:color/black"/>
+
+        <com.androidlib.CustomFontViews.CustomTextviewRegular
+            android:id="@+id/userNameTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:textSize="@dimen/sixteen_sp"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <com.androidlib.CustomFontViews.CustomTextviewRegular
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/ten_dp"
+            android:layout_height="wrap_content"
+            android:text="@string/unique_code"
+            android:textSize="@dimen/eighteen_sp"
+            android:textColor="@android:color/black"/>
+
+        <com.androidlib.CustomFontViews.CustomTextviewRegular
+            android:id="@+id/uniqueCodeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:textSize="@dimen/sixteen_sp"
+            android:textColor="@android:color/black"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/twenty_dp"
+        android:orientation="horizontal">
+
+        <com.androidlib.CustomFontViews.CustomButtonRegular
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_grey_transparent_bg"
+            android:text="@string/copy_code"
+            android:layout_marginRight="@dimen/five_dp"
+            android:layout_marginEnd="@dimen/five_dp"
+            android:id="@+id/copyCodeBT"/>
+
+        <com.androidlib.CustomFontViews.CustomButtonRegular
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/rounded_grey_transparent_bg"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:text="@string/ok"
+            android:id="@+id/okBT"/>
+    </LinearLayout>
+
+</LinearLayout>
