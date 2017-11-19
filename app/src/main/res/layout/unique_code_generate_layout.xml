@@ -8,9 +8,9 @@
     <com.androidlib.CustomFontViews.CustomTextviewRegular
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:gravity="center_vertical"
         android:layout_marginLeft="@dimen/five_dp"
         android:layout_marginStart="@dimen/five_dp"
+        android:gravity="center_vertical"
         android:text="@string/unique_code_generated"
         android:textColor="@color/solid_black"
         android:textSize="@dimen/eighteen_sp" />
@@ -25,14 +25,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/ten_dp"
-        android:padding="@dimen/five_dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/five_dp">
+
         <com.androidlib.CustomFontViews.CustomTextviewRegular
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name"
-            android:textSize="@dimen/eighteen_sp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/eighteen_sp" />
 
         <com.androidlib.CustomFontViews.CustomTextviewRegular
             android:id="@+id/userNameTV"
@@ -40,32 +41,35 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/ten_dp"
             android:layout_marginStart="@dimen/ten_dp"
-            android:textSize="@dimen/sixteen_sp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sixteen_sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/five_dp"
-        android:orientation="horizontal">
-        <com.androidlib.CustomFontViews.CustomTextviewRegular
-            android:layout_width="wrap_content"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:layout_height="wrap_content"
-            android:text="@string/unique_code"
-            android:textSize="@dimen/eighteen_sp"
-            android:textColor="@android:color/black"/>
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/ten_dp"
+        android:orientation="horizontal"
+        android:padding="@dimen/five_dp">
 
         <com.androidlib.CustomFontViews.CustomTextviewRegular
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/unique_code"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/eighteen_sp" />
+
+        <com.androidlib.CustomFontViews.CustomTextviewBold
             android:id="@+id/uniqueCodeTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/ten_dp"
             android:layout_marginStart="@dimen/ten_dp"
-            android:textSize="@dimen/sixteen_sp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sixteen_sp" />
 
     </LinearLayout>
 
@@ -74,28 +78,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/twenty_dp"
-        android:padding="@dimen/five_dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="@dimen/five_dp">
 
         <com.androidlib.CustomFontViews.CustomButtonRegular
+            android:id="@+id/copyCodeBT"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/rounded_grey_transparent_bg"
-            android:text="@string/copy_code"
-            android:layout_marginRight="@dimen/five_dp"
             android:layout_marginEnd="@dimen/five_dp"
-            android:id="@+id/copyCodeBT"/>
-
-        <com.androidlib.CustomFontViews.CustomButtonRegular
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/five_dp"
             android:layout_weight="1"
             android:background="@drawable/rounded_grey_transparent_bg"
+            android:text="@string/copy_code" />
+
+        <com.androidlib.CustomFontViews.CustomButtonRegular
+            android:id="@+id/okBT"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/five_dp"
             android:layout_marginStart="@dimen/five_dp"
-            android:text="@string/ok"
-            android:id="@+id/okBT"/>
+            android:layout_weight="1"
+            android:background="@drawable/rounded_grey_transparent_bg"
+            android:text="@string/ok" />
     </LinearLayout>
 
 </LinearLayout>
