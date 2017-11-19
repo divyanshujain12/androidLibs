@@ -182,6 +182,7 @@ public class CustomAlertDialogs {
 
     public static void showUniqueCodeDialog(final Context context, String userName, final String uniqueCode, final AlertDialogInterface alertDialogInterface) {
         alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setCancelable(false);
         LayoutInflater inflater = LayoutInflater.from(context);
         View layout = inflater.inflate(R.layout.unique_code_generate_layout, null);
         setupFullInCenterWidthDialog();
