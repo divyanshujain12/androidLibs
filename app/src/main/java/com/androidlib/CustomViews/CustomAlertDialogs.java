@@ -199,6 +199,7 @@ public class CustomAlertDialogs {
                 clipboardManager.setPrimaryClip(clipData);
 
                 CustomToasts.getInstance(context).showSuccessToast("Unique Code Has Been Copied");
+                if (alertDialogInterface != null)
                 alertDialogInterface.Yes();
             }
         });
@@ -206,6 +207,7 @@ public class CustomAlertDialogs {
             @Override
             public void onClick(View view) {
                 alertDialog.dismiss();
+                if (alertDialogInterface != null)
                 alertDialogInterface.No();
             }
         });
