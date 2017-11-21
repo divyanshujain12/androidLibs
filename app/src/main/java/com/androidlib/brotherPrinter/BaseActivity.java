@@ -83,15 +83,6 @@ public abstract class BaseActivity extends com.androidlib.GlobalClasses.BaseActi
     /**
      * show message when BACK key is clicked
      */
-    @Override
-    public boolean onKeyDown(final int keyCode, final KeyEvent event) {
-
-      /*  if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            //showTips();
-        }*/
-        return false;
-    }
-
     /**
      * show the BACK message
      */
