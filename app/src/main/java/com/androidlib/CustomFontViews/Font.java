@@ -6,7 +6,7 @@ package com.androidlib.CustomFontViews;
 
 public interface Font {
 
-    String FONT_REGULAR = "fonts/HelveticaNeueLTPro-Lt.otf";
-    String FONT_BOLD = "fonts/HelveticaNeueLTPro-Md.otf";
+    String FONT_REGULAR = "fonts/HelveticaNeue.ttf";
+    String FONT_BOLD = "fonts/HelveticaNeueLt.ttf";
 
 }

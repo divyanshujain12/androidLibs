@@ -39,8 +39,8 @@ public class Utils {
     public static final String DEFAULT_DATE = "1940-01-01";
     public static final String POST_CHALLENGE_TIME_FORMAT = DATE_FORMAT + " " + TIME_FORMAT;
     public static final String CURRENT_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public static final String CURRENT_DATE_FORMAT_NON_STATIC = "EEEE, MMMMM d, yyyy";
-    public static final String DATE_IN_DAY_FIRST = "EEEE, MMMMM d, yyyy";
+    public static final String CURRENT_DATE_FORMAT_NON_STATIC = "EEEE, MMMM d, yyyy";
+    public static final String DATE_IN_DAY_FIRST = "EEEE, MMMM d, yyyy";
     private SimpleDateFormat format;
     private static Utils utils;
 
