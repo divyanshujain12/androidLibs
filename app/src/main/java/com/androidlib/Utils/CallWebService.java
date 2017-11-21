@@ -200,6 +200,12 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         } else if (volleyError instanceof TimeoutError) {
             message = "Connection TimeOut! Please check your internet connection.";
         }
+        else{
+            if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
+                VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
+                message = error.getMessage();
+            }
+        }
         return message;
     }
 
