@@ -138,11 +138,18 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void onJsonObjectResponse(JSONObject response) {
         try {
-            //if (response.getBoolean(LibConstants.STATUS_CODE)) {
-            if (objectCallBackInterface != null)
-                objectCallBackInterface.onJsonObjectSuccess(response, apiCode);
-//            } else
-//                onError(response.getString(LibConstants.MESSAGE));
+            if (response.keys().hasNext()) {
+                String key = response.keys().next();
+                if (response.get(key) != null) {
+                    if (objectCallBackInterface != null)
+                        objectCallBackInterface.onJsonObjectSuccess(response, apiCode);
+                } else {
+                    objectCallBackInterface.onFailure("Data Not Available!", apiCode);
+                }
+            } else {
+                objectCallBackInterface.onFailure("Data Not Available!", apiCode);
+            }
+//
         } catch (final JSONException e) {
             onError(e.getMessage());
             e.printStackTrace();
@@ -152,7 +159,11 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
 
     private void onJsonArrayResponse(JSONArray response) {
         try {
-            arrayCallBackInterface.onJsonArraySuccess(response, apiCode);
+            if (response.get(0) != null) {
+                arrayCallBackInterface.onJsonArraySuccess(response, apiCode);
+            } else {
+                arrayCallBackInterface.onFailure("Data Not Available!", apiCode);
+            }
         } catch (final JSONException e) {
             onError(e.getMessage());
             e.printStackTrace();
