@@ -1,9 +1,7 @@
 package com.androidlib.Utils;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.util.Base64;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -11,11 +9,15 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.error.AuthFailureError;
+import com.android.volley.error.NetworkError;
+import com.android.volley.error.NoConnectionError;
+import com.android.volley.error.ParseError;
+import com.android.volley.error.ServerError;
+import com.android.volley.error.TimeoutError;
 import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.request.JsonObjectRequest;
 import com.androidlib.CustomViews.CustomToasts;
-import com.androidlib.GlobalClasses.CustomRequest;
 import com.androidlib.GlobalClasses.LibInit;
 import com.androidlib.Interfaces.LibConstants;
 import com.locationlib.R;
@@ -117,8 +119,7 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
     @Override
     public void onErrorResponse(VolleyError error) {
         LibInit.getInstance().getRequestQueue().getCache().invalidate(url, true);
-        error = configureErrorMessage(error);
-        onError(error.getMessage());
+        onError(configureErrorMessage(error));
     }
 
     @Override
@@ -184,12 +185,22 @@ public class CallWebService implements Response.ErrorListener, Response.Listener
         //  CustomToasts.getInstance(context).showErrorToast(error);
     }
 
-    public static VolleyError configureErrorMessage(VolleyError volleyError) {
-        if (volleyError.networkResponse != null && volleyError.networkResponse.data != null) {
-            VolleyError error = new VolleyError(new String(volleyError.networkResponse.data));
-            volleyError = error;
+    public static String configureErrorMessage(VolleyError volleyError) {
+        String message = "";
+        if (volleyError instanceof NetworkError) {
+            message = "Cannot connect to Internet...Please check your connection!";
+        } else if (volleyError instanceof ServerError) {
+            message = "The server could not be found. Please try again after some time!!";
+        } else if (volleyError instanceof AuthFailureError) {
+            message = "Cannot connect to Internet...Please check your connection!";
+        } else if (volleyError instanceof ParseError) {
+            message = "Parsing error! Please try again after some time!!";
+        } else if (volleyError instanceof NoConnectionError) {
+            message = "Cannot connect to Internet...Please check your connection!";
+        } else if (volleyError instanceof TimeoutError) {
+            message = "Connection TimeOut! Please check your internet connection.";
         }
-        return volleyError;
+        return message;
     }
 
     private void cancelRequest(String url) {
