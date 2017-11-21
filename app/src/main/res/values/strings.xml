@@ -606,5 +606,5 @@
     <string name="unique_code">UNIQUE CODE :-</string>
     <string name="copy_code">Copy Code</string>
     <string name="ok">OK</string>
-    <string name="unique_code_generated">Unique Code Generated</string>
+    <string name="unique_code_generated">Unique Code Generated for %s</string>
 </resources>

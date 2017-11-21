@@ -26,6 +26,8 @@ import com.androidlib.Interfaces.SnackBarCallback;
 import com.androidlib.Utils.ImageLoading;
 import com.locationlib.R;
 
+import java.util.Locale;
+
 
 public class CustomAlertDialogs {
     static AlertDialog alertDialog;
@@ -181,12 +183,14 @@ public class CustomAlertDialogs {
         alertDialog.show();
     }
 
-    public static void showUniqueCodeDialog(final Context context, String userName, final String uniqueCode, final AlertDialogInterface alertDialogInterface) {
+    public static void showUniqueCodeDialog(final Context context, String uniqueCodeFor, String userName, final String uniqueCode, final AlertDialogInterface alertDialogInterface) {
         alertDialog = new AlertDialog.Builder(context).create();
         alertDialog.setCancelable(false);
         LayoutInflater inflater = LayoutInflater.from(context);
         View layout = inflater.inflate(R.layout.unique_code_generate_layout, null);
         setupFullInCenterWidthDialog();
+        CustomTextviewBold uniqueCodeForTV = (CustomTextviewBold) layout.findViewById(R.id.uniqueCodeForTV);
+        uniqueCodeForTV.setText(String.format(Locale.getDefault(), context.getString(R.string.unique_code_generated), uniqueCodeFor));
         CustomTextviewRegular userNameTV = (CustomTextviewRegular) layout.findViewById(R.id.userNameTV);
         CustomTextviewBold uniqueCodeTV = (CustomTextviewBold) layout.findViewById(R.id.uniqueCodeTV);
 
