@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidlib.CustomFontViews.CustomButtonRegular;
+import com.androidlib.CustomFontViews.CustomTextviewBold;
 import com.androidlib.CustomFontViews.CustomTextviewRegular;
 import com.androidlib.Interfaces.AlertDialogInterface;
 import com.androidlib.Interfaces.ImagePickDialogInterface;
@@ -187,7 +188,7 @@ public class CustomAlertDialogs {
         View layout = inflater.inflate(R.layout.unique_code_generate_layout, null);
         setupFullInCenterWidthDialog();
         CustomTextviewRegular userNameTV = (CustomTextviewRegular) layout.findViewById(R.id.userNameTV);
-        CustomTextviewRegular uniqueCodeTV = (CustomTextviewRegular) layout.findViewById(R.id.uniqueCodeTV);
+        CustomTextviewBold uniqueCodeTV = (CustomTextviewBold) layout.findViewById(R.id.uniqueCodeTV);
 
         userNameTV.setText(userName);
         uniqueCodeTV.setText(uniqueCode);
