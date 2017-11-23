@@ -60,7 +60,7 @@ public class DownloadImage extends AsyncTask<String, Void, Boolean> {
 
             // get the input stream and pass to file output stream
             imageURL = new URL(imageUrl);
-            imageFile = new File(folder.getAbsolutePath(), imageUrl.substring(imageUrl.length() - 1, imageUrl.length()) + ".png");
+            imageFile = new File(folder.getAbsolutePath(), Utils.getCurrentTimeInMillisecond() + ".png");
             if (!imageFile.exists())
                 imageFile.createNewFile();
             fos = new FileOutputStream(imageFile);
