@@ -148,7 +148,7 @@ public class CallWebService implements ErrorListener, Listener {
         String e = "";
         if (response.keys().hasNext()) {
             e = (String) response.keys().next();
-            if (response.get(e) != null && response.get(e) != "null") {
+            if (!response.isNull(e)) {
                 if (this.objectCallBackInterface != null) {
                     this.objectCallBackInterface.onJsonObjectSuccess(response, this.apiCode);
                 }
@@ -162,7 +162,7 @@ public class CallWebService implements ErrorListener, Listener {
 
     private void onJsonArrayResponse(JSONArray response) {
         try {
-            if (response.get(0) != null) {
+            if (response.isNull(0)) {
                 this.arrayCallBackInterface.onJsonArraySuccess(response, this.apiCode);
             } else {
                 this.arrayCallBackInterface.onFailure("Data Not Available!", this.apiCode);
