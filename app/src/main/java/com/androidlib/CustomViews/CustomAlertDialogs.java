@@ -36,6 +36,7 @@ public class CustomAlertDialogs {
     @SuppressWarnings("deprecation")
     public static void showAlertDialog(Context context, String title, String message, final SnackBarCallback snackBarCallback) {
         alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setCancelable(false);
         alertDialog.setTitle(title);
         alertDialog.setMessage(message);
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
