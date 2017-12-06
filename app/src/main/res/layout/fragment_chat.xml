@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/usersSP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/ten_dp"
+        android:background="@drawable/rounded_grey_transparent_bg"
+        android:dropDownVerticalOffset="45dp"
+        android:spinnerMode="dropdown" />
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chatRV"
+        android:layout_above="@+id/messageLL"
+        android:layout_below="@+id/usersSP" />
+
+    <LinearLayout
+        android:id="@+id/messageLL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/rounded_grey_transparent_bg"
+        android:orientation="horizontal">
+
+        <com.androidlib.CustomFontViews.CustomEditTextRegular
+            android:id="@+id/messageET"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:hint="@string/message"
+            android:textSize="@dimen/sixteen_sp"
+            android:padding="@dimen/ten_dp" />
+
+        <com.androidlib.CustomFontViews.CustomButtonRegular
+            android:id="@+id/sendMsgBT"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/colorPrimaryDark"
+            android:padding="@dimen/ten_dp"
+            android:text="@string/send"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</RelativeLayout>

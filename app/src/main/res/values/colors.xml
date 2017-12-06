@@ -6,5 +6,6 @@
     <color name="accent">#000000</color>
     <color name="tab_layout_color">#5677FC</color>
     <color name="light_gray">#c3c3c3</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

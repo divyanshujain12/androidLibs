@@ -607,4 +607,6 @@
     <string name="copy_code">Copy Code</string>
     <string name="ok">OK</string>
     <string name="unique_code_generated">Unique Code Generated for %s</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
 </resources>
