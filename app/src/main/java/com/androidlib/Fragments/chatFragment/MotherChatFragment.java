@@ -37,7 +37,7 @@ import java.util.ArrayList;
  * Created by divyanshu.jain on 12/6/2017.
  */
 
-public class MotherChatFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TextWatcher {
+public class MotherChatFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TextWatcher, View.OnLayoutChangeListener {
 
     AppCompatSpinner usersSP;
     RecyclerView chatRV;
@@ -93,7 +93,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
         chatRV.setLayoutManager(linearLayoutManager);
-
+        chatRV.addOnLayoutChangeListener(this);
         CallWebService.getInstance(getContext(), true, LibApiCodes.LIB_MOTHERS).hitJsonObjectRequestAPI(CallWebService.GET, LibAPI.MOTHERS, null, this);
         messageET.addTextChangedListener(this);
     }
@@ -216,6 +216,19 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         } else {
             sendMsgBT.setEnabled(false);
             sendMsgBT.setTextColor(getResources().getColor(R.color.light_gray));
+        }
+    }
+
+    @Override
+    public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
+        if (bottom < oldBottom) {
+            chatRV.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    chatRV.smoothScrollToPosition(
+                            chatRV.getAdapter().getItemCount() - 1);
+                }
+            }, 100);
         }
     }
 }
