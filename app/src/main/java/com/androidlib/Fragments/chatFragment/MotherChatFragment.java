@@ -110,7 +110,8 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         ChatModel chatModel = new ChatModel();
         chatModel.setContent(content);
         chatModel.setSameSide(1);
-        chatAdapter.addItem(chatModel);
+        chatModels.add(chatModel);
+        chatAdapter.addItem(chatModels);
         enableDisableSendBtn(false);
         messageET.setText("");
 
