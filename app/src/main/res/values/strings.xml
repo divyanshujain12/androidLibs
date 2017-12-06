@@ -609,4 +609,7 @@
     <string name="unique_code_generated">Unique Code Generated for %s</string>
     <string name="message">Message</string>
     <string name="send">Send</string>
+    <string name="no_mother">No Mother Available</string>
+    <string name="no_doctor">No Doctor Available</string>
+    <string name="no_nurse">No Nurse Available</string>
 </resources>

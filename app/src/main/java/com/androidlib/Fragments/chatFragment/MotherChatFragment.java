@@ -19,6 +19,8 @@ import com.androidlib.Constants.LibApiCodes;
 import com.androidlib.Constants.LibConstants;
 import com.androidlib.CustomFontViews.CustomButtonRegular;
 import com.androidlib.CustomFontViews.CustomEditTextRegular;
+import com.androidlib.CustomFontViews.CustomTextviewBold;
+import com.androidlib.CustomFontViews.CustomTextviewRegular;
 import com.androidlib.GlobalClasses.BaseFragment;
 import com.androidlib.Models.AllTypeUserModel;
 import com.androidlib.Models.ChatModel;
@@ -54,6 +56,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     private String selectedMotherID = "";
     private static String fromType = "", id = "";
     private String content;
+    private CustomTextviewBold noDataTV;
 
     public static MotherChatFragment getInstance(String fromType, String id) {
         MotherChatFragment motherChatFragment = new MotherChatFragment();
@@ -86,6 +89,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     }
 
     private void InitViews() {
+        noDataTV = (CustomTextviewBold) view.findViewById(R.id.noDataTV);
         usersSP = (AppCompatSpinner) view.findViewById(R.id.usersSP);
         messageET = (CustomEditTextRegular) view.findViewById(R.id.messageET);
         sendMsgBT = (CustomButtonRegular) view.findViewById(R.id.sendMsgBT);
@@ -123,6 +127,12 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         switch (apiType) {
             case LibApiCodes.LIB_MOTHERS:
                 allTypeUserModels = UniversalParser.getInstance().parseJsonArrayWithJsonObject(response.getJSONArray("mothers"), AllTypeUserModel.class);
+                if(allTypeUserModels==null || allTypeUserModels.size()==0)
+                {
+                    noDataTV.setVisibility(View.VISIBLE);
+                    noDataTV.setText(R.string.no_mother);
+                    return;
+                }
                 allTypeUserSPAdapter = new AllTypeUserSPAdapter(getContext(), 1, allTypeUserModels);
                 usersSP.setAdapter(allTypeUserSPAdapter);
                 usersSP.setOnItemSelectedListener(this);

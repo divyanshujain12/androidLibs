@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/ten_dp"
     android:orientation="vertical">
 
     <android.support.v7.widget.AppCompatSpinner
@@ -25,6 +26,17 @@
         app:reverseLayout="true"
         app:stackFromEnd="true" />
 
+    <com.androidlib.CustomFontViews.CustomTextviewBold
+        android:id="@+id/noDataTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="No Data Available"
+        android:textColor="@color/solid_black"
+        android:textSize="@dimen/twenty_sp"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/messageLL"
         android:layout_width="match_parent"
@@ -39,6 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="8"
             android:hint="@string/message"
+            android:background="@android:color/transparent"
             android:padding="@dimen/ten_dp"
             android:textSize="@dimen/sixteen_sp" />
 
