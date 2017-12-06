@@ -205,7 +205,7 @@ public class CommonFunctions {
     public void scrollRecyclerViewToBottom(RecyclerView recyclerView) {
         RecyclerView.Adapter adapter = recyclerView.getAdapter();
         if (adapter != null && adapter.getItemCount() > 0) {
-            recyclerView.scrollToPosition(adapter.getItemCount()-1);
+            recyclerView.smoothScrollToPosition(adapter.getItemCount()-1);
         }
     }
 }

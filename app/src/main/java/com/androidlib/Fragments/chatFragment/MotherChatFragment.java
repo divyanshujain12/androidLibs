@@ -92,8 +92,6 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         chatRV = (RecyclerView) view.findViewById(R.id.chatRV);
         sendMsgBT.setOnClickListener(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
         chatRV.setLayoutManager(linearLayoutManager);
         chatRV.addOnLayoutChangeListener(this);
         CallWebService.getInstance(getContext(), true, LibApiCodes.LIB_MOTHERS).hitJsonObjectRequestAPI(CallWebService.GET, LibAPI.MOTHERS, null, this);
