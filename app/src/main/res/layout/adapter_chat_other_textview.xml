@@ -1,23 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <variable
-            name="data"
-            type="com.androidlib.Models.ChatModel"/>
-    </data>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/five_dp"
-        android:gravity="start">
-    <com.androidlib.CustomFontViews.CustomTextviewRegular
 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="start"
+    android:padding="@dimen/five_dp">
+
+    <com.androidlib.CustomFontViews.CustomTextviewRegular
+        android:id="@+id/otherChatTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:text="@{data.content}"
-        android:textSize="@dimen/sixteen_sp"
+        android:background="@drawable/chat_other_background"
         android:padding="@dimen/ten_dp"
-        android:background="@drawable/chat_other_background"/>
-    </LinearLayout>
-</layout>
+        android:textSize="@dimen/sixteen_sp" />
+</LinearLayout>
