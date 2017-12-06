@@ -157,6 +157,7 @@ public class CustomAlertDialogs {
     public static void showSingleBarcodeDialog(Context context, String qrCodePath, final AlertDialogInterface alertDialogInterface) {
         imageLoading = new ImageLoading(context);
         alertDialog = new AlertDialog.Builder(context).create();
+        alertDialog.setCancelable(false);
         LayoutInflater inflater = LayoutInflater.from(context);
         View layout = inflater.inflate(R.layout.single_barcode_layout, null);
         setupFullInCenterWidthDialog();

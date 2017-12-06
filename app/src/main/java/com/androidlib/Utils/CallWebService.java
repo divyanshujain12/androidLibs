@@ -133,7 +133,7 @@ public class CallWebService implements ErrorListener, Listener {
 
     private void onJsonObjectResponse(JSONObject response) {
         try {
-            if (response.has("error")) {
+            if (response.has("errors")) {
                 this.objectCallBackInterface.onFailure("Some Error Occured", this.apiCode);
             } else
                 checkNullValue(response);
