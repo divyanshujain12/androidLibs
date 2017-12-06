@@ -222,13 +222,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         if (bottom < oldBottom) {
-            chatRV.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    chatRV.smoothScrollToPosition(
-                            chatRV.getAdapter().getItemCount() - 1);
-                }
-            }, 100);
+            chatRV.smoothScrollToPosition(chatRV.getAdapter().getItemCount() - 1);
         }
     }
 }
