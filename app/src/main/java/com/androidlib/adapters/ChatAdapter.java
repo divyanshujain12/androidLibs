@@ -88,7 +88,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
             return 0;
     }
     public void addItem(ChatModel chatModel){
-        chatModels.add(0,chatModel);
-        notifyDataSetChanged();
+        chatModels.add(chatModel);
+        notifyItemInserted(chatModels.size() - 1);
+        //notifyDataSetChanged();
     }
 }
