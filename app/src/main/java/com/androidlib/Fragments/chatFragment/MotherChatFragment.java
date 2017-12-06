@@ -113,7 +113,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         chatModel.setContent(content);
         chatModel.setSameSide(1);
         chatModels.add(chatModel);
-        chatAdapter.addItem(chatModels);
+        chatAdapter.addItem(chatModel);
         enableDisableSendBtn(false);
         messageET.setText("");
 
@@ -205,7 +205,6 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     public void afterTextChanged(Editable s) {
 
     }
-
     @Override
     public void onResume() {
         super.onResume();
