@@ -23,6 +23,7 @@ import com.androidlib.GlobalClasses.BaseFragment;
 import com.androidlib.Models.AllTypeUserModel;
 import com.androidlib.Models.ChatModel;
 import com.androidlib.Utils.CallWebService;
+import com.androidlib.Utils.CommonFunctions;
 import com.androidlib.Utils.UniversalParser;
 import com.androidlib.adapters.AllTypeUserSPAdapter;
 import com.androidlib.adapters.ChatAdapter;
@@ -132,6 +133,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
                 chatModels = UniversalParser.getInstance().parseJsonArrayWithJsonObject(response.getJSONArray("Messages"), ChatModel.class);
                 chatAdapter = new ChatAdapter(getContext(), chatModels, this);
                 chatRV.setAdapter(chatAdapter);
+                CommonFunctions.getInstance().scrollRecyclerViewToBottom(chatRV);
                 break;
         }
 

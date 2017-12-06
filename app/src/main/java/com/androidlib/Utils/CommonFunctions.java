@@ -9,6 +9,7 @@ import android.media.MediaMetadataRetriever;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -199,5 +200,12 @@ public class CommonFunctions {
     public void hideDialog() {
         if (progressDialog != null)
             progressDialog.dismiss();
+    }
+
+    public void scrollRecyclerViewToBottom(RecyclerView recyclerView) {
+        RecyclerView.Adapter adapter = recyclerView.getAdapter();
+        if (adapter != null && adapter.getItemCount() > 0) {
+            recyclerView.scrollToPosition(adapter.getItemCount()-1);
+        }
     }
 }
