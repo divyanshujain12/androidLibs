@@ -95,7 +95,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         chatRV.setLayoutManager(linearLayoutManager);
 
         CallWebService.getInstance(getContext(), true, LibApiCodes.LIB_MOTHERS).hitJsonObjectRequestAPI(CallWebService.GET, LibAPI.MOTHERS, null, this);
-
+        messageET.addTextChangedListener(this);
     }
 
     @Override
