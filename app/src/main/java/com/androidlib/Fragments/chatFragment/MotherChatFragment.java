@@ -110,6 +110,9 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         ChatModel chatModel = new ChatModel();
         chatModel.setContent(content);
         chatModel.setSameSide(1);
+        enableDisableSendBtn(false);
+        messageET.setText("");
+
     }
 
     @Override
@@ -185,9 +188,10 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
         if (s.length() > 0)
-            sendMsgBT.setEnabled(true);
+            enableDisableSendBtn(true);
+
         else
-            sendMsgBT.setEnabled(false);
+            enableDisableSendBtn(false);
 
 
     }
@@ -200,6 +204,16 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        sendMsgBT.setEnabled(false);
+        enableDisableSendBtn(false);
+    }
+
+    private void enableDisableSendBtn(boolean enable) {
+        if (enable) {
+            sendMsgBT.setEnabled(true);
+            sendMsgBT.setTextColor(getResources().getColor(android.R.color.white));
+        } else {
+            sendMsgBT.setEnabled(false);
+            sendMsgBT.setTextColor(getResources().getColor(R.color.light_gray));
+        }
     }
 }
