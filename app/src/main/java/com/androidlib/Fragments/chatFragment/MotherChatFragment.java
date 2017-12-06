@@ -1,6 +1,7 @@
 package com.androidlib.Fragments.chatFragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.LinearLayoutManager;
@@ -222,7 +223,13 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
         if (bottom < oldBottom) {
-            chatRV.smoothScrollToPosition(chatRV.getAdapter().getItemCount() - 1);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    chatRV.smoothScrollToPosition(
+                            chatRV.getAdapter().getItemCount() - 1);
+                }
+            }, 100);
         }
     }
 }
