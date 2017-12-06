@@ -5,14 +5,18 @@
             name="data"
             type="com.androidlib.Models.ChatModel"/>
     </data>
-
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start">
     <com.androidlib.CustomFontViews.CustomTextviewRegular
-        xmlns:android="http://schemas.android.com/apk/res/android"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left"
+        android:layout_gravity="start"
         android:text="@{data.content}"
         android:textSize="@dimen/sixteen_sp"
         android:padding="@dimen/ten_dp"
         android:background="@drawable/chat_other_background"/>
+    </LinearLayout>
 </layout>
