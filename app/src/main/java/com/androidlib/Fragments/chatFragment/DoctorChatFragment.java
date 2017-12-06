@@ -121,7 +121,7 @@ public class DoctorChatFragment extends BaseFragment implements View.OnClickList
     public void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException {
         super.onJsonObjectSuccess(response, apiType);
         switch (apiType) {
-            case LibApiCodes.LIB_MOTHERS:
+            case LibApiCodes.LIB_DOCTORS:
                 allTypeUserModels = UniversalParser.getInstance().parseJsonArrayWithJsonObject(response.getJSONArray("doctors"), AllTypeUserModel.class);
                 if(allTypeUserModels==null || allTypeUserModels.size()==0)
                 {

@@ -121,7 +121,7 @@ public class NurseChatFragment extends BaseFragment implements View.OnClickListe
     public void onJsonObjectSuccess(JSONObject response, int apiType) throws JSONException {
         super.onJsonObjectSuccess(response, apiType);
         switch (apiType) {
-            case LibApiCodes.LIB_MOTHERS:
+            case LibApiCodes.LIB_NURSES:
                 allTypeUserModels = UniversalParser.getInstance().parseJsonArrayWithJsonObject(response.getJSONArray("nurses"), AllTypeUserModel.class);
                 if(allTypeUserModels==null || allTypeUserModels.size()==0)
                 {
