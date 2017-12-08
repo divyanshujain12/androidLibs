@@ -231,7 +231,8 @@ public class MilkDeptChatFragment extends BaseFragment implements View.OnClickLi
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    chatRV.smoothScrollToPosition(
+                    if (chatRV.getAdapter() != null && chatRV.getAdapter().getItemCount() > 0)
+                        chatRV.smoothScrollToPosition(
                             chatRV.getAdapter().getItemCount() - 1);
                 }
             }, 100);

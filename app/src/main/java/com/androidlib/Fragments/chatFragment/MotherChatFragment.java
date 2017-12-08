@@ -20,7 +20,6 @@ import com.androidlib.Constants.LibConstants;
 import com.androidlib.CustomFontViews.CustomButtonRegular;
 import com.androidlib.CustomFontViews.CustomEditTextRegular;
 import com.androidlib.CustomFontViews.CustomTextviewBold;
-import com.androidlib.CustomFontViews.CustomTextviewRegular;
 import com.androidlib.GlobalClasses.BaseFragment;
 import com.androidlib.Models.AllTypeUserModel;
 import com.androidlib.Models.ChatModel;
@@ -127,8 +126,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
         switch (apiType) {
             case LibApiCodes.LIB_MOTHERS:
                 allTypeUserModels = UniversalParser.getInstance().parseJsonArrayWithJsonObject(response.getJSONArray("mothers"), AllTypeUserModel.class);
-                if(allTypeUserModels==null || allTypeUserModels.size()==0)
-                {
+                if (allTypeUserModels == null || allTypeUserModels.size() == 0) {
                     noDataTV.setVisibility(View.VISIBLE);
                     noDataTV.setText(R.string.no_mother);
                     return;
@@ -213,6 +211,7 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
     public void afterTextChanged(Editable s) {
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -235,8 +234,9 @@ public class MotherChatFragment extends BaseFragment implements View.OnClickList
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    chatRV.smoothScrollToPosition(
-                            chatRV.getAdapter().getItemCount() - 1);
+                    if (chatRV.getAdapter() != null && chatRV.getAdapter().getItemCount() > 0)
+                        chatRV.smoothScrollToPosition(
+                                chatRV.getAdapter().getItemCount() - 1);
                 }
             }, 100);
         }
