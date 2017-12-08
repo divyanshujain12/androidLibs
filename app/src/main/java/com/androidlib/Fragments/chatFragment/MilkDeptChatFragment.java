@@ -161,7 +161,7 @@ public class MilkDeptChatFragment extends BaseFragment implements View.OnClickLi
     private JSONObject createJsonForGetChat() {
         try {
             JSONObject toJsonObject = new JSONObject();
-            toJsonObject.put(LibConstants.DOCTOR_ID, selectedDoctorID);
+            toJsonObject.put(LibConstants.MILK_DEPT_ID, selectedDoctorID);
 
             JSONObject fromJsonObject = new JSONObject();
             fromJsonObject.put(fromType, id);
