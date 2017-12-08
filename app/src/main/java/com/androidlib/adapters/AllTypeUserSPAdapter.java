@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
+import com.androidlib.CustomFontViews.CustomTextviewRegular;
 import com.androidlib.Models.AllTypeUserModel;
 import com.locationlib.R;
 import com.locationlib.databinding.SingleTextviewRegularBinding;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  */
 
 public class AllTypeUserSPAdapter extends ArrayAdapter<AllTypeUserModel> {
-    private SingleTextviewRegularBinding singleTextviewRegularBinding;
+
     private ArrayList<AllTypeUserModel> allTypeUserModels = new ArrayList<>();
     private Context context;
 
@@ -42,10 +43,12 @@ public class AllTypeUserSPAdapter extends ArrayAdapter<AllTypeUserModel> {
     public View getCustomView(int position, View convertView, ViewGroup parent) {
         View row = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.single_textview_regular, parent, false);
-        singleTextviewRegularBinding = DataBindingUtil.bind(row);
+
         AllTypeUserModel allTypeUserModel = allTypeUserModels.get(position);
-        singleTextviewRegularBinding.setData(allTypeUserModel);
-        singleTextviewRegularBinding.executePendingBindings();
+        ((CustomTextviewRegular)row).setText(allTypeUserModel.getName());
+//        singleTextviewRegularBinding = DataBindingUtil.bind(row);
+//        singleTextviewRegularBinding.setData(allTypeUserModel);
+//        singleTextviewRegularBinding.executePendingBindings();
 
         return row;
     }
