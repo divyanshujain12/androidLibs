@@ -33,9 +33,11 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile files('libs/universal-image-loader-1.9.5.jar')
+    compile files('libs/BrotherPrintLibrary.jar')
+    compile files('libs/MobilePrintLib.jar')
     compile 'com.google.android.gms:play-services:9.2.0'
     compile 'com.google.android.gms:play-services-location:9.2.0'
-    compile files('libs/universal-image-loader-1.9.5.jar')
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:recyclerview-v7:25.0.0'
@@ -45,10 +47,9 @@ dependencies {
     compile 'dev.dworks.libs:volleyplus:+'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'me.relex:circleindicator:1.2.2@aar'
-    testCompile 'junit:junit:4.12'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.journeyapps:zxing-android-embedded:3.4.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.0.9'
-    compile files('libs/BrotherPrintLibrary.jar')
-    compile files('libs/MobilePrintLib.jar')
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
 }
