@@ -1,7 +1,6 @@
 package com.androidlib.adapters;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,6 @@ import android.widget.ArrayAdapter;
 import com.androidlib.CustomFontViews.CustomTextviewRegular;
 import com.androidlib.Models.AllTypeUserModel;
 import com.locationlib.R;
-import com.locationlib.databinding.SingleTextviewRegularBinding;
 
 import java.util.ArrayList;
 
@@ -42,7 +40,7 @@ public class AllTypeUserSPAdapter extends ArrayAdapter<AllTypeUserModel> {
     // This funtion called for each row ( Called data.size() times )
     public View getCustomView(int position, View convertView, ViewGroup parent) {
         View row = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.single_textview_regular, parent, false);
+                .inflate(R.layout.textview_regular, parent, false);
 
         AllTypeUserModel allTypeUserModel = allTypeUserModels.get(position);
         CustomTextviewRegular singleTV = (CustomTextviewRegular) row.findViewById(R.id.singleTV);
