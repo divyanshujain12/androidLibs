@@ -45,7 +45,8 @@ public class AllTypeUserSPAdapter extends ArrayAdapter<AllTypeUserModel> {
                 .inflate(R.layout.single_textview_regular, parent, false);
 
         AllTypeUserModel allTypeUserModel = allTypeUserModels.get(position);
-        ((CustomTextviewRegular)row).setText(allTypeUserModel.getName());
+        CustomTextviewRegular singleTV = (CustomTextviewRegular) row.findViewById(R.id.singleTV);
+        singleTV.setText(allTypeUserModel.getName());
 //        singleTextviewRegularBinding = DataBindingUtil.bind(row);
 //        singleTextviewRegularBinding.setData(allTypeUserModel);
 //        singleTextviewRegularBinding.executePendingBindings();
