@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="data"
             type="com.androidlib.Models.AllTypeUserModel"/>
     </data>
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
     <com.androidlib.CustomFontViews.CustomTextviewRegular
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:background="@color/white"
+        android:background="@drawable/rounded_grey_transparent_bg"
         android:text="@{data.name}"
         android:textSize="@dimen/sixteen_sp"
         android:padding="@dimen/ten_dp" />
+</LinearLayout>
 </layout>
