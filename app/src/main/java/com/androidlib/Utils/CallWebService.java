@@ -162,7 +162,7 @@ public class CallWebService implements ErrorListener, Listener {
 
     private void onJsonArrayResponse(JSONArray response) {
         try {
-            if (response.isNull(0)) {
+            if (!response.isNull(0)) {
                 this.arrayCallBackInterface.onJsonArraySuccess(response, this.apiCode);
             } else {
                 this.arrayCallBackInterface.onFailure("Data Not Available!", this.apiCode);
